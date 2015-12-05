@@ -43,19 +43,6 @@ angular.module('track-chat.login', [ 'ui.router' ]);
         });
     }]);
 })(angular.module('track-chat.login'));
-angular.module('track-chat.profile', [ 'ui.router' ]);
-(function(app) {
-    app.config(["$stateProvider", function($stateProvider) {
-        $stateProvider.state('profile', {
-            url : '/profile/:userId',
-            views : {
-                "contents" : {
-                    templateUrl : 'modules/profile/templates/profile.html'
-                }
-            }
-        });
-    }]);
-})(angular.module('track-chat.profile'));
 angular.module('track-chat.ping', [ 'ui.router' ]);
 
 (function(app) {
@@ -71,6 +58,19 @@ angular.module('track-chat.ping', [ 'ui.router' ]);
 		});
 	}]);
 })(angular.module('track-chat.ping'));
+angular.module('track-chat.profile', [ 'ui.router' ]);
+(function(app) {
+    app.config(["$stateProvider", function($stateProvider) {
+        $stateProvider.state('profile', {
+            url : '/profile/:userId',
+            views : {
+                "contents" : {
+                    templateUrl : 'modules/profile/templates/profile.html'
+                }
+            }
+        });
+    }]);
+})(angular.module('track-chat.profile'));
 angular.module('track-chat.register', [ 'ui.router' ]);
 
 (function(app) {
@@ -256,9 +256,6 @@ angular.module('track-chat.register', [ 'ui.router' ]);
         };
     }]);
 })(angular.module('track-chat.common'));
-(function(app) {
-
-})(angular.module('track-chat.dashboard'));
 (function (app) {
     app.controller('DashboardController', ['$scope', '$location', 'uiGmapGoogleMapApi', 'authService', function ($scope, $location, uiGmapGoogleMapApi, authService) {
         authService.checkIfLoginRequired(function() {
@@ -272,6 +269,9 @@ angular.module('track-chat.register', [ 'ui.router' ]);
             });
         });
     }]);
+})(angular.module('track-chat.dashboard'));
+(function(app) {
+
 })(angular.module('track-chat.dashboard'));
 (function (app) {
     app.controller('HomeController', ["$scope", "home", "uiGmapGoogleMapApi", function ($scope, home,uiGmapGoogleMapApi) {
@@ -337,6 +337,15 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 
 })(angular.module('track-chat.login'));
 (function(app) {
+	app.controller('PingController', ["$scope", function($scope) {
+		$scope.ping = '';
+
+	}]);
+})(angular.module('track-chat.ping'));
+(function(app) {
+
+})(angular.module('track-chat.ping'));
+(function(app) {
     app.controller('ProfileController', ['$scope', '$stateParams', 'authService', 'userService', function($scope, $stateParams, authService, userService) {
         authService.checkIfLoginRequired(function() {
             var me = authService.getMyDetails();
@@ -381,15 +390,6 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 (function(app) {
 
 })(angular.module('track-chat.profile'));
-(function(app) {
-	app.controller('PingController', ["$scope", function($scope) {
-		$scope.ping = '';
-
-	}]);
-})(angular.module('track-chat.ping'));
-(function(app) {
-
-})(angular.module('track-chat.ping'));
 (function (app) {
     app.controller('RegisterController', ['$scope', '$location', 'userService', function ($scope, $location, userService) {
         $scope.register = 'Register';
