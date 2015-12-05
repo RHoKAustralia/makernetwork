@@ -9,6 +9,7 @@ var build = require('gulp-build');
 
 gulp.task('clean', function() {
 	del('build');
+  del('dist');
 });
 
 gulp.task('build', ['config', 'copy-fonts', 'copy-images', 'copy-static-maps', 'compile-sass', 'compile-js', 'compile-css']);
@@ -25,9 +26,15 @@ gulp.task('serve', ['build', 'watch'], function () {
     server.listen(9000);
 });
 
-gulp.task('deploy', function() {
-  // gulp.src(['build/**/*.*', 'modules/**/*.html', 'index.html'])
-  //   .pipe(gulp.dest('dist'))
-  return gulp.src(['build/**/*.*', 'modules/**/*.html', 'index.html', 'CNAME'])
-    .pipe(ghPages());
+gulp.task('package', ['build'], function() {
+  gulp.src(['build/**/*.*']).pipe(gulp.dest('dist/build'))
+  gulp.src(['modules/**/*.html']).pipe(gulp.dest('dist/modules'))
+  gulp.src(['bower_components/**/*.*']).pipe(gulp.dest('dist/bower_components'))
+  gulp.src(['img/**/*.*']).pipe(gulp.dest('dist/img'))
+  gulp.src(['CNAME', 'index.html']).pipe(gulp.dest('dist'))
+});
+
+gulp.task('deploy', ['package'], function() {
+  return gulp.src(['./dist/**/*', ''])
+      .pipe(ghPages());
 });
