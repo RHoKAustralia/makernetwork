@@ -22,7 +22,7 @@
     "gulp-watch": "^4.1.0",
     "require-dir": "^0.1.0"
   },
-  "devDependencies": {   
+  "devDependencies": {
     "gulp-build": "^0.5.3",
     "gulp-gh-pages": "^0.5.4"
   }

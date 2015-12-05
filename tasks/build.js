@@ -24,6 +24,7 @@ var jsPaths = {
         "bower_components/angular-resource/angular-resource.js"
     ],
     modules: [
+        "bower_components/dist/js/bootstrap.js",
         "bower_components/moment/moment.js",
         "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
         "bower_components/angular-ui-router/release/angular-ui-router.js",
