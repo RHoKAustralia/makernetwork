@@ -2,12 +2,14 @@
     app.controller('ProfileController', ['$scope', '$stateParams', 'authService', 'userService', function($scope, $stateParams, authService, userService) {
         authService.checkIfLoginRequired(function() {
             var me = authService.getMyDetails();
+            $scope.myUserId = me.objectId;
             $scope.myFullName = me.firstName + " " + me.lastName;
             $scope.myProfilePhoto = (me.photo || {}).url || "/img/user_unknown.png";
             
             userService.getUserById($stateParams.userId).then(function(user) {
                 $scope.profileImg = (user.photo || {}).url || "/img/user_unknown.png";
                 $scope.name = user.firstName + " " + user.lastName;
+                $scope.isMe = (user.objectId == me.objectId);
                 $scope.about = user.bio;
                 $scope.skills = [
                     { name: "Advertising" },
