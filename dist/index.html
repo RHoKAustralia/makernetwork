@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="track-chat">
+<head>
+    <base href="/"/>
+    <title>Melbourne Maker Network</title>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="icon" type="image/png" href="img/favicon.png"/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+          rel='stylesheet' type='text/css'>
+
+    <link href="build/css/modules.css" rel="stylesheet"/>
+    <link href="build/css/core.css" rel="stylesheet"/>
+
+    <script src="build/js/alljquery.js" type="text/javascript"></script>
+    <script src="build/js/allangular.js" type="text/javascript"></script>
+    <script src="build/js/modules.js" type="text/javascript"></script>
+    <script src="build/js/config.js" type="text/javascript"></script>
+    <script src="build/js/core.js" type="text/javascript"></script>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+
+    <script>
+  function initialize() {
+    var mapProp = {
+      center:new google.maps.LatLng(51.508742,-0.120850),
+      zoom:5,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+    var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</head>
+<body>
+
+<div class="main-container"><!--
+    <a href="#/home"><img src="img/logo.png" alt=""></a>
+    <nav>
+        <a href="#/home"><i class="fa fa-home"></i></a>
+        <a href="#/seo">SEO</a>
+        <a href="#">AdWords</a>
+        <a href="#">Web Dev</a>
+        <a href="#">CRO</a>
+        <a href="#">Social</a>
+        <a href="#">Content</a>
+        <a href="#">Reputation</a>
+        <a href="#">Email Marketing</a>
+        
+        <input type="text" name="search">
+        <a href="#"><i class="fa fa-search"></i></a>
+
+        <div class="dropdown account-dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Account
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Edit Account</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    -->
+    <div ui-view="contents">
+    </div>
+
+    <div class="jumbotron" id="jumbotron-footer">
+        <p>Made with <i class="fa fa-heart"></i> in Melbourne, Australia <br/> &copy; Melbourne Maker Network 2015</p>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $.material.init();
+        $().dropdown({autoinit: "select"});
+    });
+</script>
+</body>
+</html>
