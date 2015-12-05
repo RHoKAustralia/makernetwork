@@ -62,14 +62,14 @@ body .jumbotron-1 {
   color: #fff;
 }
 
-.btn:not(.btn-link):not(.btn-flat), .btn-default:not(.btn-link):not(.btn-flat) {
-  background: transparent;
-  border-width: 1px;
-  border-color: #fff;
-  border-style: solid;
-  color: #fff;
-  border-radius: 5px;
-}
+/*.btn:not(.btn-link):not(.btn-flat), .btn-default:not(.btn-link):not(.btn-flat) {*/
+  /*background: transparent;*/
+  /*border-width: 1px;*/
+  /*border-color: #fff;*/
+  /*border-style: solid;*/
+  /*color: #fff;*/
+  /*border-radius: 5px;*/
+/*}*/
 
 .jumbotron-info p {
   font-size: 14px;
