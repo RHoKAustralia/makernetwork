@@ -4,8 +4,7 @@ var watch = require('gulp-watch');
 var requireDir = require('require-dir');
 var dir = requireDir('tasks');
 var express = require('express');
-var ghPages = require('gulp-gh-pages');
-var build = require('gulp-build');
+
 
 gulp.task('clean', function() {
 	del('build');
@@ -23,11 +22,4 @@ gulp.task('serve', ['build', 'watch'], function () {
     var server = express();
     server.use(express.static('.'));
     server.listen(9000);
-});
-
-gulp.task('deploy', function() {
-  gulp.src(['build/**/*.*', 'modules/**/*.html', 'index.html'])
-    .pipe(gulp.dest('dist'))
-  return gulp.src('./**/*')
-    .pipe(ghPages());
-});
+});

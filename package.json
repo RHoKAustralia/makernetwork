@@ -21,9 +21,5 @@
     "gulp-wait": "0.0.2",
     "gulp-watch": "^4.1.0",
     "require-dir": "^0.1.0"
-  },
-  "devDependencies": {
-    "gulp-build": "^0.5.3",
-    "gulp-gh-pages": "^0.5.4"
   }
 }
