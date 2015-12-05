@@ -7,7 +7,7 @@ gulp.task('config', function() {
 		name : 'config',
 		constants : {
 			config : {
-				 backendUrl : 'http://localhost:8080/'
+				 backendUrl : 'https://api.parse.com/1/'
 				//backendUrl : 'http://backend.dulcet-theory-91214.appspot.com/'
 			}
 		}
