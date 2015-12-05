@@ -223,6 +223,24 @@ body .jumbotron-1 {
 
 
 
+.tab-content-container {
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.profile-image {
+    width: 140px;
+    height: 140px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#profiletabs {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 .register-page{
     padding: 20px;
 }
