@@ -1,0 +1,42 @@
+<div ng-controller="HomeController">
+    <!--<h3>{{title}}</h3>-->
+    <home></home>
+    <div class="row client-boxes">
+        <div class="col-md-4">
+            <div class="well client-box">
+                <h1>SEO</h1>
+                <div class="client-summary">
+                    <p>Total Clients: {{works.seo.totalclients}}</p>
+                    <p>Total Keywords: {{works.seo.keywords}}</p>
+                    <p>Total Clients: {{works.seo.totalclients}}</p>
+                    <p>First Page Rank: {{works.seo.firstpage}}</p>
+                    <p>Second Page Rank: {{works.seo.secondpage}}</p>
+                    <p>Total Seo Requests: {{works.seo.seoreq}}</p>
+                    <p>Total Tasks: {{works.seo.tasks}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="well client-box">
+                <h1>AdWords</h1>
+                <div class="client-summary">
+                    <p>Total Clients: {{works.adwords.totalclients}}</p>
+                    <p>Active Clients: {{works.adwords.active}}</p>
+                    <p>Inactive Clients: {{works.adwords.inactive}}</p>
+                    <p>Total Tasks: {{works.adwords.tasks}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="well client-box">
+                <h1>Web Dev</h1>
+                <div class="client-summary">
+                    <p>Total Clients: {{works.web.totalclients}}</p>
+                    <p>Active Clients: {{works.web.active}}</p>
+                    <p>Inactive Clients: {{works.web.inactive}}</p>
+                    <p>Total Tasks: {{works.web.tasks}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

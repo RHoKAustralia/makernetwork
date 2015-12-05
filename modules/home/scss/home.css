@@ -1,0 +1,23 @@
+.client-boxes {
+    padding: 5px;
+}
+
+.client-box {
+    height: 250px;
+}
+
+.client-summary {
+    overflow: auto;
+    position: relative;
+    height: 150px;
+}
+
+.client-name {
+    font-weight: 200;
+    font-size: large;
+}
+
+.client-site {
+    font-weight: 200;
+    font-size: medium;
+}
