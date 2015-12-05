@@ -1,12 +1,12 @@
 <nav class="navbar" id="dashboard-navbar">
 <div class="container">
   <div id="navbar-dashboard-left">
-  	<a href="/"><img src="/img/logo.png"></img></a>
+  	<a href="#/dashboard"><img src="/img/logo.png"></img></a>
 
   	<input type="text" name="name" id="name" placeholder="search">
   </div>
   <div id="navbar-dashboard-right">
-  	<span>Tracy Nguyen</span>
-    <a href="/"><img src="/img/tracy.jpg"></img></a>
+  	<span>{{myFullName}}</span>
+    <a href="/"><img ng-src="{{myProfilePhoto}}"></img></a>
   </div>
 </div>
