@@ -60,6 +60,24 @@
   border-radius: 17px;
 }
 
+.centered-pills { text-align:center; }
+.centered-pills ul.nav-pills { display:inline-block; }
+.centered-pills li { display:inline; }
+.centered-pills a { float:left; }
+
+.nav-pills a {
+  font-size: 16px;
+}
+
+.nav > li > a {
+  padding: 5px 15px;
+  color: #96bc3d;
+}
+
+.nav-pills > li.active > a {
+  background-color: #96bc3d;
+}
+
 #map_canvas {
   margin: 0;
   padding: 0;
