@@ -1,2 +1,0 @@
-# makernetwork
-The Maker Network
