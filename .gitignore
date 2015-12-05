@@ -3,5 +3,5 @@ bower_components
 build
 build/js
 .idea
-.publish   
-dist   
+.publish
+dist
