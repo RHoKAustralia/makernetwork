@@ -1,5 +1,5 @@
 (function (app) {
-    app.controller('HomeController', function ($scope, home) {
+    app.controller('HomeController', function ($scope, home,uiGmapGoogleMapApi) {
         $scope.title = home.title;
         $scope.works = {
             seo: {

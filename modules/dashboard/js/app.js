@@ -1,4 +1,4 @@
-angular.module('track-chat.dashboard', [ 'ui.router' ]);
+angular.module('track-chat.dashboard', [ 'ui.router' ,'uiGmapgoogle-maps']);
 
 (function(app) {
 	app.config(function($stateProvider) {

@@ -32,7 +32,10 @@ var jsPaths = {
         "bower_components/bootstrap-material-design/dist/js/ripples.js",
         "bower_components/bootstrap-material-design/dist/js/material.js",
         "bower_components/angular-aria/angular-aria.js",
-        "bower_components/angular-material/angular-material.js"
+        "bower_components/angular-material/angular-material.js",
+        "bower_components/lodash/lodash.js",
+        "bower_components/angular-simple-logger/dist/angular-simple-logger.js",
+        "bower_components/angular-google-maps/dist/angular-google-maps.js"
     ]
 };
 
@@ -61,7 +64,7 @@ gulp.task('copy-images', function () {
         'app/src/**/*.png',
         'app/src/**/*.gif',
         'app/src/**/*.bmp',
-        'app/src/**/*.ico',
+        'app/src/**/*.ico'
     ]).pipe(gulp.dest('build/'));
 });
 
