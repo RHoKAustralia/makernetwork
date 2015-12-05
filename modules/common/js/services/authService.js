@@ -60,9 +60,11 @@
             if (bHasUnverifiedSession) {
                 var req = makeRequest('GET', '/users/me');
                 $http(req).then(function(response) {
-                    if (response.status == 200)
+                    if (response.status == 200) {
+                        _me = response.data;
+                        window.localStorage["parseSession"] = JSON.stringify(_me);
                         callback(response.data);
-                    else
+                    } else
                         badSession();
                 }, function(err) {
                     badSession();

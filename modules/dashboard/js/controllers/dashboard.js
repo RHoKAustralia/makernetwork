@@ -3,7 +3,7 @@
         authService.checkIfLoginRequired(function() {
             var me = authService.getMyDetails();
             $scope.myFullName = me.firstName + " " + me.lastName;
-            $scope.myProfilePhoto = me.profileUrl || "/img/user_unknown.png";
+            $scope.myProfilePhoto = (me.photo || {}).url || "/img/user_unknown.png";
             $scope.dashboard = '';
             uiGmapGoogleMapApi.then(function (maps) {
                 // alert("Map is ready");

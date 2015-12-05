@@ -3,12 +3,12 @@
         authService.checkIfLoginRequired(function() {
             var me = authService.getMyDetails();
             $scope.myFullName = me.firstName + " " + me.lastName;
-            $scope.myProfilePhoto = me.profileUrl || "/img/user_unknown.png";
+            $scope.myProfilePhoto = (me.photo || {}).url || "/img/user_unknown.png";
             
             userService.getUserById($stateParams.userId).then(function(user) {
-                $scope.profileImg = user.profileUrl || "/img/user_unknown.png";
+                $scope.profileImg = (user.photo || {}).url || "/img/user_unknown.png";
                 $scope.name = user.firstName + " " + user.lastName;
-                $scope.about = "INSERT SOME DESCRIPTION HERE";
+                $scope.about = user.bio;
                 $scope.skills = [
                     { name: "Advertising" },
                     { name: "Creative Strategy" },
