@@ -1,4 +1,3 @@
-angular.module('track-chat.common', ['ngMaterial','uiGmapgoogle-maps']);
 angular.module('track-chat.dashboard', [ 'ui.router' ,'uiGmapgoogle-maps']);
 
 (function(app) {
@@ -14,6 +13,7 @@ angular.module('track-chat.dashboard', [ 'ui.router' ,'uiGmapgoogle-maps']);
 		});
 	}]);
 })(angular.module('track-chat.dashboard'));
+angular.module('track-chat.common', ['ngMaterial','uiGmapgoogle-maps']);
 angular.module('track-chat.home', [ 'ui.router','track-chat.common','uiGmapgoogle-maps' ]);
 
 (function(app) {
@@ -87,36 +87,6 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 	}]);
 })(angular.module('track-chat.register'));
 (function (app) {
-    app.controller('HomeController', ["$scope", "home", "uiGmapGoogleMapApi", function ($scope, home,uiGmapGoogleMapApi) {
-        $scope.title = home.title;
-        $scope.works = {
-            seo: {
-                totalclients: 26,
-                keywords: 100,
-                firstpage: 40,
-                secondpage: 36,
-                seoreq: 15,
-                tasks: 25
-            },
-            adwords: {
-                totalclients: 20,
-                active: 15,
-                inactive: 5,
-                tasks: 25
-            },
-            web: {
-                totalclients: 20,
-                active: 15,
-                inactive: 5,
-                tasks: 25
-            }
-        };
-    }]);
-})(angular.module('track-chat.home'));
-(function(app) {
-
-})(angular.module('track-chat.dashboard'));
-(function (app) {
     app.controller('DashboardController', ['$scope', '$location', 'uiGmapGoogleMapApi', 'authService', function ($scope, $location, uiGmapGoogleMapApi, authService) {
         authService.checkIfLoginRequired(function() {
             var me = authService.getMyDetails();
@@ -129,6 +99,9 @@ angular.module('track-chat.register', [ 'ui.router' ]);
             });
         });
     }]);
+})(angular.module('track-chat.dashboard'));
+(function(app) {
+
 })(angular.module('track-chat.dashboard'));
 (function(app) {
     app.service('authService', ["$http", "$q", "$location", function($http, $q, $location) {
@@ -300,12 +273,32 @@ angular.module('track-chat.register', [ 'ui.router' ]);
         };
     }]);
 })(angular.module('track-chat.common'));
-(function(app) {
-	app.service('home', function() {
-		return {
-			title : 'Home service'
-		};
-	});
+(function (app) {
+    app.controller('HomeController', ["$scope", "home", "uiGmapGoogleMapApi", function ($scope, home,uiGmapGoogleMapApi) {
+        $scope.title = home.title;
+        $scope.works = {
+            seo: {
+                totalclients: 26,
+                keywords: 100,
+                firstpage: 40,
+                secondpage: 36,
+                seoreq: 15,
+                tasks: 25
+            },
+            adwords: {
+                totalclients: 20,
+                active: 15,
+                inactive: 5,
+                tasks: 25
+            },
+            web: {
+                totalclients: 20,
+                active: 15,
+                inactive: 5,
+                tasks: 25
+            }
+        };
+    }]);
 })(angular.module('track-chat.home'));
 (function(app) {
 	app.directive('home', function() {
@@ -319,6 +312,13 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 	});
 })(angular.module('track-chat.home'));
 
+(function(app) {
+	app.service('home', function() {
+		return {
+			title : 'Home service'
+		};
+	});
+})(angular.module('track-chat.home'));
 (function(app) {
     app.controller('LoginController', ['$scope', '$location', 'authService', function($scope, $location, authService) {
         $scope.login = 'Login';
@@ -337,9 +337,6 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 
 })(angular.module('track-chat.login'));
 (function(app) {
-
-})(angular.module('track-chat.ping'));
-(function(app) {
 	app.controller('PingController', ["$scope", function($scope) {
 		$scope.ping = '';
 
@@ -347,7 +344,7 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 })(angular.module('track-chat.ping'));
 (function(app) {
 
-})(angular.module('track-chat.profile'));
+})(angular.module('track-chat.ping'));
 (function(app) {
     app.controller('ProfileController', ['$scope', '$stateParams', 'authService', 'userService', function($scope, $stateParams, authService, userService) {
         authService.checkIfLoginRequired(function() {
@@ -389,6 +386,9 @@ angular.module('track-chat.register', [ 'ui.router' ]);
             });
         });
     }]);
+})(angular.module('track-chat.profile'));
+(function(app) {
+
 })(angular.module('track-chat.profile'));
 (function (app) {
     app.controller('RegisterController', ['$scope', '$location', 'userService', function ($scope, $location, userService) {
