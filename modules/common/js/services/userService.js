@@ -33,5 +33,16 @@
             });
             return df.promise;
         };
+
+        this.listUsers = function(filter) {
+            var req = makeRequest('GET', '/users');
+            var df = $q.defer();
+            $http(req).then(function(response) {
+                df.resolve(response.data);
+            }, function(err) {
+                df.reject(err);
+            });
+            return df.promise;
+        }
     });
 })(angular.module('track-chat.common'));
