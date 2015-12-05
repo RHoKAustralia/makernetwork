@@ -189,9 +189,6 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 
 })(angular.module('track-chat.ping'));
 (function(app) {
-
-})(angular.module('track-chat.profile'));
-(function(app) {
     app.controller('ProfileController', ['$scope', function($scope) {
         $scope.profileImg = "img/tracy.jpg";
         $scope.name = "Tracey Nguyen";
@@ -222,6 +219,9 @@ angular.module('track-chat.register', [ 'ui.router' ]);
             { imageUrl: "http://renswijnmalen.nl/bootstrap/desktop_mobile.png", name: "Swinburne University of Technology", description: "This is the venue for the RHoK 2015 summer hackathon", address: "John St", city: "Hawthorn", state: "Victoria", country: "Australia" }
         ];
     }]);
+})(angular.module('track-chat.profile'));
+(function(app) {
+
 })(angular.module('track-chat.profile'));
 (function (app) {
     app.controller('RegisterController', ["$scope", "$http", function ($scope, $http) {
