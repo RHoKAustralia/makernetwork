@@ -1,4 +1,5 @@
-.navbar.navbar, .navbar-default.navbar {
+
+#dashboard-navbar {
   background-image: url("/img/landing-1.jpg");
   background-position: 10%;
   background-repeat: no-repeat;
