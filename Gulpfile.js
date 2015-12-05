@@ -26,8 +26,8 @@ gulp.task('serve', ['build', 'watch'], function () {
 });
 
 gulp.task('deploy', function() {
-  gulp.src(['build/**/*.*', 'modules/**/*.html', 'index.html'])
-    .pipe(gulp.dest('dist'))
-  return gulp.src('./**/*')
+  // gulp.src(['build/**/*.*', 'modules/**/*.html', 'index.html'])
+  //   .pipe(gulp.dest('dist'))
+  return gulp.src(['build/**/*.*', 'modules/**/*.html', 'index.html', 'CNAME'])
     .pipe(ghPages());
 });
