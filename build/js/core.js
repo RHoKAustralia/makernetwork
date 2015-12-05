@@ -1,19 +1,3 @@
-angular.module('track-chat.common', ['ngMaterial']);
-angular.module('track-chat.dashboard', [ 'ui.router' ]);
-
-(function(app) {
-	app.config(["$stateProvider", function($stateProvider) {
-
-		$stateProvider.state('dashboard', {
-			url : '/dashboard',
-			views : {
-				"contents" : {
-					templateUrl : 'modules/dashboard/templates/dashboard.html'
-				}
-			}
-		});
-	}]);
-})(angular.module('track-chat.dashboard'));
 angular.module('track-chat.home', [ 'ui.router','track-chat.common' ]);
 
 (function(app) {
@@ -29,6 +13,22 @@ angular.module('track-chat.home', [ 'ui.router','track-chat.common' ]);
 		});
 	}]);
 })(angular.module('track-chat.home'));
+angular.module('track-chat.dashboard', [ 'ui.router' ]);
+
+(function(app) {
+	app.config(["$stateProvider", function($stateProvider) {
+
+		$stateProvider.state('dashboard', {
+			url : '/dashboard',
+			views : {
+				"contents" : {
+					templateUrl : 'modules/dashboard/templates/dashboard.html'
+				}
+			}
+		});
+	}]);
+})(angular.module('track-chat.dashboard'));
+angular.module('track-chat.common', ['ngMaterial']);
 angular.module('track-chat.login', [ 'ui.router' ]);
 
 (function(app) {
@@ -74,41 +74,6 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 		});
 	}]);
 })(angular.module('track-chat.register'));
-(function(app) {
-
-	app.factory('ResourceFactory', ["$resource", function($resource) {
-		return function(url, params) {
-			params = params || {};
-
-            return $resource(url, params, {
-                'get': {method: 'GET'},
-
-                'save': {method: 'POST'},
-                'create': {method: 'POST'},
-
-                'edit': {method: 'PUT'},
-                'update': {method: 'PUT'},
-
-                'remove': {method: 'DELETE'},
-                'delete': {method: 'DELETE'},
-
-                'list': {method: 'GET', isArray: true},
-                'query': {method: 'GET', isArray: true}
-            });
-		};
-	}]);
-
-})(angular.module('track-chat.common'));
-
-(function(app) {
-	app.controller('DashboardController', ["$scope", function($scope) {
-		$scope.dashboard = '';
-
-	}]);
-})(angular.module('track-chat.dashboard'));
-(function(app) {
-
-})(angular.module('track-chat.dashboard'));
 (function (app) {
     app.controller('HomeController', ["$scope", "home", function ($scope, home) {
         $scope.title = home.title;
@@ -155,6 +120,41 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 		};
 	});
 })(angular.module('track-chat.home'));
+(function(app) {
+	app.controller('DashboardController', ["$scope", function($scope) {
+		$scope.dashboard = '';
+
+	}]);
+})(angular.module('track-chat.dashboard'));
+(function(app) {
+
+})(angular.module('track-chat.dashboard'));
+(function(app) {
+
+	app.factory('ResourceFactory', ["$resource", function($resource) {
+		return function(url, params) {
+			params = params || {};
+
+            return $resource(url, params, {
+                'get': {method: 'GET'},
+
+                'save': {method: 'POST'},
+                'create': {method: 'POST'},
+
+                'edit': {method: 'PUT'},
+                'update': {method: 'PUT'},
+
+                'remove': {method: 'DELETE'},
+                'delete': {method: 'DELETE'},
+
+                'list': {method: 'GET', isArray: true},
+                'query': {method: 'GET', isArray: true}
+            });
+		};
+	}]);
+
+})(angular.module('track-chat.common'));
+
 (function(app) {
 	app.controller('LoginController', ["$scope", function($scope) {
 		$scope.login = 'Login';
