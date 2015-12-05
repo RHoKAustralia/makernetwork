@@ -1,0 +1,1 @@
+angular.module('track-chat.common', ['ngMaterial']);
