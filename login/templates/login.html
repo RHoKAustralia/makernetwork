@@ -4,17 +4,17 @@
 
         <div class="form-group label-floating">
 
-            <label class="control-label" for="username">Username</label>
+            <label class="control-label" for="username">Email Address</label>
 
             <div class="input-group">
-                <input class="form-control" id="username" type="text">
+                <input class="form-control" id="username" type="text" ng-model="username">
             </div>
             <label class="control-label" for="password">Password</label>
 
             <div class="input-group">
-                <input class="form-control" id="password" type="password">
+                <input class="form-control" id="password" type="password" ng-model="password">
             </div>
-            <a class="btn btn-raised btn-primary" href="#">Login</a>
+            <a class="btn btn-raised btn-primary" ng-click="loginClick()">Login</a>
             <a class="btn btn-raised btn-primary btn-sm" href="#/register">Register</a>
         </div>
 </div>
