@@ -31,7 +31,7 @@ gulp.task('package', ['build'], function() {
   gulp.src(['modules/**/*.html']).pipe(gulp.dest('dist/modules'))
   gulp.src(['bower_components/**/*.*']).pipe(gulp.dest('dist/bower_components'))
   gulp.src(['img/**/*.*']).pipe(gulp.dest('dist/img'))
-  gulp.src(['CNAME', 'index.html']).pipe(gulp.dest('dist'))
+  gulp.src(['CNAME', 'index.html', 'user_management.html']).pipe(gulp.dest('dist'))
 });
 
 gulp.task('deploy', ['package'], function() {
