@@ -1,19 +1,4 @@
 angular.module('track-chat.common', ['ngMaterial']);
-angular.module('track-chat.dashboard', [ 'ui.router' ]);
-
-(function(app) {
-	app.config(["$stateProvider", function($stateProvider) {
-
-		$stateProvider.state('dashboard', {
-			url : '/dashboard',
-			views : {
-				"contents" : {
-					templateUrl : 'modules/dashboard/templates/dashboard.html'
-				}
-			}
-		});
-	}]);
-})(angular.module('track-chat.dashboard'));
 angular.module('track-chat.home', [ 'ui.router','track-chat.common' ]);
 
 (function(app) {
@@ -29,6 +14,21 @@ angular.module('track-chat.home', [ 'ui.router','track-chat.common' ]);
 		});
 	}]);
 })(angular.module('track-chat.home'));
+angular.module('track-chat.dashboard', [ 'ui.router' ]);
+
+(function(app) {
+	app.config(["$stateProvider", function($stateProvider) {
+
+		$stateProvider.state('dashboard', {
+			url : '/dashboard',
+			views : {
+				"contents" : {
+					templateUrl : 'modules/dashboard/templates/dashboard.html'
+				}
+			}
+		});
+	}]);
+})(angular.module('track-chat.dashboard'));
 angular.module('track-chat.login', [ 'ui.router' ]);
 
 (function(app) {
@@ -115,15 +115,6 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 
 })(angular.module('track-chat.common'));
 
-(function(app) {
-	app.controller('DashboardController', ["$scope", function($scope) {
-		$scope.dashboard = '';
-
-	}]);
-})(angular.module('track-chat.dashboard'));
-(function(app) {
-
-})(angular.module('track-chat.dashboard'));
 (function (app) {
     app.controller('HomeController', ["$scope", "home", function ($scope, home) {
         $scope.title = home.title;
@@ -152,6 +143,13 @@ angular.module('track-chat.register', [ 'ui.router' ]);
     }]);
 })(angular.module('track-chat.home'));
 (function(app) {
+	app.service('home', function() {
+		return {
+			title : 'Home service'
+		};
+	});
+})(angular.module('track-chat.home'));
+(function(app) {
 	app.directive('home', function() {
 		return {
 			restrict : 'E',
@@ -164,12 +162,14 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 })(angular.module('track-chat.home'));
 
 (function(app) {
-	app.service('home', function() {
-		return {
-			title : 'Home service'
-		};
-	});
-})(angular.module('track-chat.home'));
+	app.controller('DashboardController', ["$scope", function($scope) {
+		$scope.dashboard = '';
+
+	}]);
+})(angular.module('track-chat.dashboard'));
+(function(app) {
+
+})(angular.module('track-chat.dashboard'));
 (function(app) {
 	app.controller('LoginController', ["$scope", function($scope) {
 		$scope.login = 'Login';

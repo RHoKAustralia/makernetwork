@@ -17,76 +17,6 @@ body {
 	font-size: 12px;
 	color: #fff;
 }
-
-#dashboard-navbar {
-  background-image: url("/img/landing-1.jpg");
-  background-position: 10%;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-#navbar-dashboard-left {
-  float: left;
-}
-
-#navbar-dashboard-right {
-  float: right;
-}
-
-#navbar-dashboard-left a {
-  color: #fff;
-  display: block;
-  padding-top: 8px;
-  float: left;
-}
-
-#navbar-dashboard-left a img {
-  width: 34px;
-  height: 34px;
-}
-
-#navbar-dashboard-left input {
-  float: left;
-  display: inline;
-  margin-top: 10px;
-  margin-left: 16px;
-  height: 30px;
-  border-radius: 3px;
-  border-style: none;
-  font-size: 16px;
-  padding-left: 8px;
-  color: #000;
-}
-
-#navbar-dashboard-right span {
-  float: left;
-  font-size: 16px;
-  color: #fff;
-  padding-top: 12px;
-  padding-right: 12px;
-}
-
-#navbar-dashboard-right a {
-  color: #fff;
-  display: block;
-  padding-top: 8px;
-  float: left;
-}
-
-#navbar-dashboard-right a img {
-  width: 34px;
-  height: 34px;
-  border-radius: 17px;
-}
-
-#map_canvas {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-
-
 .navbar.navbar, .navbar-default.navbar {
   background-color: transparent;
 }
@@ -218,6 +148,76 @@ body .jumbotron-1 {
   height: 500px;
 }
 
+
+
+
+
+#dashboard-navbar {
+  background-image: url("/img/landing-1.jpg");
+  background-position: 10%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#navbar-dashboard-left {
+  float: left;
+}
+
+#navbar-dashboard-right {
+  float: right;
+}
+
+#navbar-dashboard-left a {
+  color: #fff;
+  display: block;
+  padding-top: 8px;
+  float: left;
+}
+
+#navbar-dashboard-left a img {
+  width: 34px;
+  height: 34px;
+}
+
+#navbar-dashboard-left input {
+  float: left;
+  display: inline;
+  margin-top: 10px;
+  margin-left: 16px;
+  height: 30px;
+  border-radius: 3px;
+  border-style: none;
+  font-size: 16px;
+  padding-left: 8px;
+  color: #000;
+}
+
+#navbar-dashboard-right span {
+  float: left;
+  font-size: 16px;
+  color: #fff;
+  padding-top: 12px;
+  padding-right: 12px;
+}
+
+#navbar-dashboard-right a {
+  color: #fff;
+  display: block;
+  padding-top: 8px;
+  float: left;
+}
+
+#navbar-dashboard-right a img {
+  width: 34px;
+  height: 34px;
+  border-radius: 17px;
+}
+
+#map_canvas {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
 
 
