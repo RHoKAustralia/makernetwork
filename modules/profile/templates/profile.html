@@ -28,9 +28,9 @@
             <div class="tab-content">
                 <div id="skills" class="tab-pane active">
                     <div class="tab-content-container">
-                        <div class="row" ng-repeat="skill in skills">
+                        <div class="row" ng-repeat="skill in related_skills">
                             <div class="col-xs-5 col-md-3">
-                                <span class="badge pull-right">{{skill.name}}</span>
+                                <span class="badge pull-right">{{skill.title}}</span>
                             </div>
                             <div class="col-xs-7 col-md-9">
                                 
@@ -41,9 +41,9 @@
                 <div id="spaces" class="tab-pane">
                     <div class="tab-content-container">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-repeat="space in spaces">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-repeat="space in related_spaces">
                                 <div class="product-chooser-item selected">
-                                    <img ng-src="{{space.imageUrl}}" class="img-rounded col-xs-4 col-sm-4 col-md-12 col-lg-12" alt="Mobile and Desktop">
+                                    <img ng-src="{{space.imageUrl}}" class="img-rounded col-xs-4 col-sm-4 col-md-12 col-lg-12" alt="{{space.name}}">
                                     <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
                                         <h2 class="title">{{space.name}}</h2>
                                         <p class="address">{{space.address}} {{space.city}} {{space.state}}</p>
@@ -58,7 +58,7 @@
                 </div>
                 <div id="tools" class="tab-pane">
                     <div class="tab-content-container">
-                        <div class="row" ng-repeat="tool in tools">
+                        <div class="row" ng-repeat="tool in related_tools">
                             <div class="col-xs-5 col-md-3">
                                 <span class="badge pull-right">{{tool.name}}</span>
                             </div>
@@ -71,7 +71,7 @@
                 <div id="projects" class="tab-pane">
                     <div class="tab-content-container">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-repeat="project in projects">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-repeat="project in related_projects">
                                 <div class="product-chooser-item selected">
                                     <img ng-src="{{project.imageUrl}}" class="img-rounded col-xs-4 col-sm-4 col-md-12 col-lg-12" alt="Mobile and Desktop">
                                     <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">

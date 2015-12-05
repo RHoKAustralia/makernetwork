@@ -1,5 +1,6 @@
 (function(app) {
     app.service('authService', function($http, $q, $location) {
+        //TODO: Move to common configuration
         var url = "https://api.parse.com/1";
         var appID = 'LkDEH7w5Ls45AWY88HvMBPQQrnaQtsWE1IuizM85';
         var restApiKey = 'MRze2gVwcEO0349p2YWhU55gOPNbE8y8oGEBsi4u';

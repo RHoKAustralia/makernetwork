@@ -6,11 +6,17 @@
             $scope.myFullName = me.firstName + " " + me.lastName;
             $scope.myProfilePhoto = (me.photo || {}).url || "/img/user_unknown.png";
             
-            userService.getUserById($stateParams.userId).then(function(user) {
+            userService.getUserById($stateParams.userId, true).then(function(user) {
                 $scope.profileImg = (user.photo || {}).url || "/img/user_unknown.png";
                 $scope.name = user.firstName + " " + user.lastName;
                 $scope.isMe = (user.objectId == me.objectId);
                 $scope.about = user.bio;
+                $scope.related_skills = user.related_skills;
+                $scope.related_tools = user.related_tools;
+                $scope.related_projects = user.related_projects;
+                $scope.related_spaces = user.related_spaces;
+                
+                /*
                 $scope.skills = [
                     { name: "Advertising" },
                     { name: "Creative Strategy" },
@@ -36,6 +42,7 @@
                 $scope.spaces = [
                     { imageUrl: "http://renswijnmalen.nl/bootstrap/desktop_mobile.png", name: "Swinburne University of Technology", description: "This is the venue for the RHoK 2015 summer hackathon", address: "John St", city: "Hawthorn", state: "Victoria", country: "Australia" }
                 ];
+                */
             }, function(err) {
                 alert("User not found");
             });
