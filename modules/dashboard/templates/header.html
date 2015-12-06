@@ -1,11 +1,12 @@
 <nav class="navbar" id="dashboard-navbar">
-<div class="container">
-  <div id="navbar-dashboard-left">
-  	<a href="#/dashboard"><img src="/img/logo.png"></img></a>
+    <div class="container">
+        <div id="navbar-dashboard-left">
+            <a href="#/dashboard"><img src="/img/logo.png"></a>
 
-  	<input type="text" name="name" id="name" placeholder="search">
-  </div>
-  <div id="navbar-dashboard-right">
-    <a ng-href="#/profile/{{myUserId}}"><span>{{myFullName}}</span> <img ng-src="{{myProfilePhoto}}"></img></a>
-  </div>
-</div>
+            <input type="text" name="name" id="name" ng-model="search.query" placeholder="search">
+        </div>
+        <div id="navbar-dashboard-right">
+            <a ng-href="#/profile/{{myUserId}}"><span>{{myFullName}}</span> <img ng-src="{{myProfilePhoto}}"></a>
+        </div>
+    </div>
+</nav>

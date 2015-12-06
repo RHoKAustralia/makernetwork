@@ -14,6 +14,20 @@ angular.module('track-chat.dashboard', [ 'ui.router' ,'uiGmapgoogle-maps']);
 		});
 	}]);
 })(angular.module('track-chat.dashboard'));
+angular.module('track-chat.login', [ 'ui.router' ]);
+
+(function(app) {
+    app.config(["$stateProvider", function($stateProvider) {
+        $stateProvider.state('login', {
+            url : '/login',
+            views : {
+                "contents" : {
+                    templateUrl : 'modules/login/templates/login.html'
+                }
+            }
+        });
+    }]);
+})(angular.module('track-chat.login'));
 angular.module('track-chat.home', [ 'ui.router','track-chat.common','uiGmapgoogle-maps' ]);
 
 (function(app) {
@@ -29,20 +43,6 @@ angular.module('track-chat.home', [ 'ui.router','track-chat.common','uiGmapgoogl
 		});
 	}]);
 })(angular.module('track-chat.home'));
-angular.module('track-chat.login', [ 'ui.router' ]);
-
-(function(app) {
-    app.config(["$stateProvider", function($stateProvider) {
-        $stateProvider.state('login', {
-            url : '/login',
-            views : {
-                "contents" : {
-                    templateUrl : 'modules/login/templates/login.html'
-                }
-            }
-        });
-    }]);
-})(angular.module('track-chat.login'));
 angular.module('track-chat.ping', [ 'ui.router' ]);
 
 (function(app) {
@@ -227,10 +227,11 @@ angular.module('track-chat.register', [ 'ui.router' ]);
         var appID = 'LkDEH7w5Ls45AWY88HvMBPQQrnaQtsWE1IuizM85';
         var restApiKey = 'MRze2gVwcEO0349p2YWhU55gOPNbE8y8oGEBsi4u';
         
-        function makeRequest(method, resource) {
+        function makeRequest(method, resource, params) {
             return {
                 method: method,
                 url: url + resource,
+                params: params,
                 headers: {
                     'X-Parse-Application-Id': appID,
                     'X-Parse-REST-API-Key': restApiKey,
@@ -315,7 +316,10 @@ angular.module('track-chat.register', [ 'ui.router' ]);
         };
 
         this.listUsers = function(filter) {
-            var req = makeRequest('GET', '/users');
+            reqparams = {
+                include: "tool"
+            };
+            var req = makeRequest('GET', '/users', reqparams);
             var df = $q.defer();
             $http(req).then(function(response) {
                 df.resolve(response.data);
@@ -323,7 +327,41 @@ angular.module('track-chat.register', [ 'ui.router' ]);
                 df.reject(err);
             });
             return df.promise;
-        }
+        };
+
+        this.listUsersWithTools = function(filter) {
+            reqparams = {
+                where: {"tools":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Tool"}}},
+                include: "tool"
+            };
+            var req = makeRequest('GET', '/users', reqparams);
+            var df = $q.defer();
+
+            $http(req).then(function(response) {
+                df.resolve(response.data);
+            }, function(err) {
+                df.reject(err);
+            });
+            return df.promise;
+
+        };
+
+        this.listUsersWithProjects = function(filter) {
+            reqparams = {
+                where: {"projects":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Project"}}},
+                include: "project"
+            };
+            var req = makeRequest('GET', '/users', reqparams);
+            var df = $q.defer();
+
+            $http(req).then(function(response) {
+                df.resolve(response.data);
+            }, function(err) {
+                df.reject(err);
+            });
+            return df.promise;
+
+        };
     }]);
 })(angular.module('track-chat.common'));
 (function (app) {
@@ -331,6 +369,9 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 
       $scope.map = {center: {latitude: -37.8602828, longitude: 145.079616}, zoom: 8};
 
+      $scope.search = {
+          query:''
+      };
       $scope.options = {
           scrollwheel: false
       };
@@ -408,12 +449,45 @@ angular.module('track-chat.register', [ 'ui.router' ]);
        }, function (err) {
         alert("Users not found");
       });
+
+      userService.listUsersWithTools('').then(function (users) {
+        console.log(users);
+
+        $scope.user_tools = users.results;
+       }, function (err) {
+        alert("Users not found");
+      });
+
+      userService.listUsersWithProjects('').then(function (users) {
+        console.log(users);
+
+        $scope.user_projects = users.results;
+       }, function (err) {
+        alert("Users not found");
+      });
     });
   }]);
 })(angular.module('track-chat.dashboard'));
 (function(app) {
 
 })(angular.module('track-chat.dashboard'));
+(function(app) {
+    app.controller('LoginController', ['$scope', '$location', 'authService', function($scope, $location, authService) {
+        $scope.login = 'Login';
+        $scope.username = '';
+        $scope.password = '';
+        $scope.loginClick = function() {
+            authService.login($scope.username, $scope.password).then(function() {
+                $location.path("/dashboard");
+            }, function(err) {
+                alert("An error occurred authenticating: " + err);
+            });
+        };
+    }]);
+})(angular.module('track-chat.login'));
+(function(app) {
+
+})(angular.module('track-chat.login'));
 (function (app) {
     app.controller('HomeController', ["$scope", "home", "uiGmapGoogleMapApi", function ($scope, home,uiGmapGoogleMapApi) {
         $scope.title = home.title;
@@ -440,23 +514,6 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 		};
 	});
 })(angular.module('track-chat.home'));
-(function(app) {
-    app.controller('LoginController', ['$scope', '$location', 'authService', function($scope, $location, authService) {
-        $scope.login = 'Login';
-        $scope.username = '';
-        $scope.password = '';
-        $scope.loginClick = function() {
-            authService.login($scope.username, $scope.password).then(function() {
-                $location.path("/dashboard");
-            }, function(err) {
-                alert("An error occurred authenticating: " + err);
-            });
-        };
-    }]);
-})(angular.module('track-chat.login'));
-(function(app) {
-
-})(angular.module('track-chat.login'));
 (function(app) {
 	app.controller('PingController', ["$scope", function($scope) {
 		$scope.ping = '';
