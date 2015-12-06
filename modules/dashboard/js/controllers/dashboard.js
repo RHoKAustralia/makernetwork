@@ -3,6 +3,9 @@
 
       $scope.map = {center: {latitude: -37.8602828, longitude: 145.079616}, zoom: 8};
 
+      $scope.search = {
+          query:''
+      };
       $scope.options = {
           scrollwheel: false
       };
