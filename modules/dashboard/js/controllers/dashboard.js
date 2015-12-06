@@ -30,8 +30,59 @@
       var markers = [];
       markers.push(createRandomMarker(-37.8602828, 145.079616, 1, "This is a Pin with ID 1"));
       markers.push(createRandomMarker(-38, 145, 2, "This is a Pin with ID 2"));
+      markers.push(createRandomMarker(-37.757752, 144.901088, 3, "This is a Pin with ID 3"));
+      markers.push(createRandomMarker(-37.861096,144.9388537, 4, "This is a Pin with ID 4"));
+      markers.push(createRandomMarker(-37.8154318,144.917381, 5, "This is a Pin with ID 5"));
+      markers.push(createRandomMarker(-37.781740, 144.851809, 6, "This is a Pin with ID 6"));
 
       $scope.randomMarkers = markers;
+
+      $scope.markerUpdate = function(tab){
+          switch(tab) {
+              case "all":
+                  var markers = [];
+                  markers.push(createRandomMarker(-37.8602828, 145.079616, 1, "This is a Pin with ID 1"));
+                  markers.push(createRandomMarker(-38, 145, 2, "This is a Pin with ID 2"));
+                  markers.push(createRandomMarker(-37.757752, 144.901088, 3, "This is a Pin with ID 3"));
+                  markers.push(createRandomMarker(-37.861096,144.9388537, 4, "This is a Pin with ID 4"));
+                  markers.push(createRandomMarker(-37.8154318,144.917381, 5, "This is a Pin with ID 5"));
+                  markers.push(createRandomMarker(-37.781740, 144.851809, 6, "This is a Pin with ID 6"));
+
+                  $scope.randomMarkers = markers;
+                  break;
+              case "spaces":
+                  var markers = [];
+                  markers.push(createRandomMarker(-37.8602828, 145.079616, 1, "This is a Space Pin with ID 1"));
+                  markers.push(createRandomMarker(-37.8154318,144.917381, 5, "This is a Space Pin with ID 5"));
+                  markers.push(createRandomMarker(-37.781740, 144.851809, 6, "This is a Space Pin with ID 6"));
+
+                  $scope.randomMarkers = markers;
+                  break;
+              case "skills":
+                  var markers = [];
+                  markers.push(createRandomMarker(-37.8154318,144.917381, 5, "This is a Skill Pin with ID 5"));
+                  markers.push(createRandomMarker(-37.781740, 144.851809, 6, "This is a Skill Pin with ID 6"));
+
+                  $scope.randomMarkers = markers;
+                  break;
+              case "tools":
+                  var markers = [];
+                  markers.push(createRandomMarker(-37.8602828, 145.079616, 1, "This is a Tool Pin with ID 1"));
+                  markers.push(createRandomMarker(-37.781740, 144.851809, 6, "This is a Tool Pin with ID 6"));
+
+                  $scope.randomMarkers = markers;
+                  break;
+              case "projects":
+                  var markers = [];
+                  markers.push(createRandomMarker(-37.757752, 144.901088, 1, "This is a Project Pin with ID 1"));
+                  markers.push(createRandomMarker(-37.861096,144.9388537, 2, "This is a Project Pin with ID 2"));
+                  markers.push(createRandomMarker(-37.8154318,144.917381, 3, "This is a Project Pin with ID 3"));
+                  markers.push(createRandomMarker(-37.781740, 144.851809, 4, "This is a Project Pin with ID 4"));
+
+                  $scope.randomMarkers = markers;
+                  break;
+          }
+      };
 
     authService.checkIfLoginRequired(function () {
       var me = authService.getMyDetails();
