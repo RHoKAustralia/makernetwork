@@ -53,131 +53,6 @@ body {
   font-size: 16px;
   margin: 5px;
 }
-
-#dashboard-navbar {
-  background-image: url("/img/landing-1.jpg");
-  background-position: 10%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 0px;
-}
-
-#navbar-dashboard-left {
-  float: left;
-}
-
-#navbar-dashboard-right {
-  float: right;
-}
-
-#navbar-dashboard-left a {
-  color: #fff;
-  display: block;
-  padding-top: 8px;
-  float: left;
-}
-
-#navbar-dashboard-left a img {
-  width: 34px;
-  height: 34px;
-}
-
-#navbar-dashboard-left input {
-  float: left;
-  display: inline;
-  margin-top: 10px;
-  margin-left: 16px;
-  height: 30px;
-  border-radius: 3px;
-  border-style: none;
-  font-size: 16px;
-  padding-left: 8px;
-  color: #000;
-}
-
-#navbar-dashboard-right span {
-  float: left;
-  font-size: 16px;
-  color: #fff;
-  padding-top: 6px;
-  padding-right: 12px;
-}
-
-#navbar-dashboard-right a {
-  color: #fff;
-  display: block;
-  padding-top: 8px;
-  float: left;
-}
-
-#navbar-dashboard-right a img {
-  width: 34px;
-  height: 34px;
-  border-radius: 17px;
-  background-color: #96bc3d;
-}
-
-.centered-pills { text-align:center; }
-.centered-pills ul.nav-pills { display:inline-block; }
-.centered-pills li { display:inline; }
-.centered-pills a { float:left; }
-
-.nav-pills a {
-  font-size: 16px;
-}
-
-.nav > li > a {
-  padding: 5px 15px;
-  color: #96bc3d;
-}
-
-.nav-pills > li.active > a {
-  background-color: #96bc3d;
-}
-
-#map_canvas {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-.angular-google-map-container {
-  height: 450px;
-}
-
-.jumbotron-dashboard {
-  padding-top: 0px;
-}
-
-.dashboard-profile-image {
-  width: 60px;
-  height: 60px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.dashboard-user-info {
-  margin-bottom: 8px;
-  border-radius: 3px;
-  background-color: #efefef;
-  font-size: 15px;
-  text-align: left;
-}
-
-.dashboard-user-info a {
-  color: #96bc3d;
-}
-
-.dashboard-profile-name {
-  font-size: 20px;
-  text-align: left;
-  padding-top: 10px;
-}
-
-
 .navbar.navbar, .navbar-default.navbar {
     background-color: transparent;
 }
@@ -321,6 +196,132 @@ body .jumbotron-1 {
 
 
 
+
+#dashboard-navbar {
+  background-image: url("/img/landing-1.jpg");
+  background-position: 10%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 0px;
+}
+
+#navbar-dashboard-left {
+  float: left;
+}
+
+#navbar-dashboard-right {
+  float: right;
+}
+
+#navbar-dashboard-left a {
+  color: #fff;
+  display: block;
+  padding-top: 8px;
+  float: left;
+}
+
+#navbar-dashboard-left a img {
+  width: 34px;
+  height: 34px;
+}
+
+#navbar-dashboard-left input {
+  float: left;
+  display: inline;
+  margin-top: 10px;
+  margin-left: 16px;
+  height: 30px;
+  border-radius: 3px;
+  border-style: none;
+  font-size: 16px;
+  padding-left: 8px;
+  color: #000;
+}
+
+#navbar-dashboard-right span {
+  float: left;
+  font-size: 16px;
+  color: #fff;
+  padding-top: 6px;
+  padding-right: 12px;
+}
+
+#navbar-dashboard-right a {
+  color: #fff;
+  display: block;
+  padding-top: 8px;
+  float: left;
+}
+
+#navbar-dashboard-right a img {
+  width: 34px;
+  height: 34px;
+  border-radius: 17px;
+  background-color: #96bc3d;
+}
+
+.centered-pills { text-align:center; }
+.centered-pills ul.nav-pills { display:inline-block; }
+.centered-pills li { display:inline; }
+.centered-pills a { float:left; }
+
+.nav-pills a {
+  font-size: 16px;
+}
+
+.nav > li > a {
+  padding: 5px 15px;
+  color: #96bc3d;
+}
+
+.nav-pills > li.active > a {
+  background-color: #96bc3d;
+}
+
+#map_canvas {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.angular-google-map-container {
+  height: 450px;
+}
+
+.jumbotron-dashboard {
+  padding-top: 0px;
+}
+
+.dashboard-profile-image {
+  width: 60px;
+  height: 60px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dashboard-user-info {
+  margin-bottom: 8px;
+  border-radius: 3px;
+  background-color: #efefef;
+  font-size: 15px;
+  text-align: left;
+}
+
+.dashboard-user-info a {
+  color: #96bc3d;
+}
+
+.dashboard-profile-name {
+  font-size: 20px;
+  text-align: left;
+  padding-top: 10px;
+}
+
+
+
 .form-group input  {
 	margin: auto;
 	padding-top: 20px;
@@ -346,7 +347,6 @@ body .jumbotron-1 {
 	background-color: #96bc3d;
 	border-color: #96bc3d;
 }
-
 
 .tab-content-container {
     margin-top: 20px;

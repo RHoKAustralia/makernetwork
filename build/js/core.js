@@ -1,3 +1,18 @@
+angular.module('track-chat.home', [ 'ui.router','track-chat.common','uiGmapgoogle-maps' ]);
+
+(function(app) {
+	app.config(["$stateProvider", function($stateProvider) {
+
+		$stateProvider.state('home', {
+			url : '/home',
+			views : {
+				"contents" : {
+					templateUrl : 'modules/home/templates/home.html'
+				}
+			}
+		});
+	}]);
+})(angular.module('track-chat.home'));
 angular.module('track-chat.common', ['uiGmapgoogle-maps']);
 angular.module('track-chat.dashboard', [ 'ui.router' ,'uiGmapgoogle-maps']);
 
@@ -14,21 +29,6 @@ angular.module('track-chat.dashboard', [ 'ui.router' ,'uiGmapgoogle-maps']);
 		});
 	}]);
 })(angular.module('track-chat.dashboard'));
-angular.module('track-chat.home', [ 'ui.router','track-chat.common','uiGmapgoogle-maps' ]);
-
-(function(app) {
-	app.config(["$stateProvider", function($stateProvider) {
-
-		$stateProvider.state('home', {
-			url : '/home',
-			views : {
-				"contents" : {
-					templateUrl : 'modules/home/templates/home.html'
-				}
-			}
-		});
-	}]);
-})(angular.module('track-chat.home'));
 angular.module('track-chat.ping', [ 'ui.router' ]);
 
 (function(app) {
@@ -86,6 +86,32 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 		});
 	}]);
 })(angular.module('track-chat.register'));
+(function(app) {
+	app.directive('home', function() {
+		return {
+			restrict : 'E',
+			templateUrl : 'modules/home/templates/directives/homeTemplate.tpl.html',
+			link : function(scope, element, attrs) {
+				scope.message = 'Active Clients';
+			}
+		};
+	});
+})(angular.module('track-chat.home'));
+
+(function (app) {
+    app.controller('HomeController', ["$scope", "home", "uiGmapGoogleMapApi", function ($scope, home,uiGmapGoogleMapApi) {
+        $scope.title = home.title;
+
+        $scope.map = { center: { latitude: -37.8602828, longitude: 145.079616 }, zoom: 8 };
+    }]);
+})(angular.module('track-chat.home'));
+(function(app) {
+	app.service('home', function() {
+		return {
+			title : 'Home service'
+		};
+	});
+})(angular.module('track-chat.home'));
 (function(app) {
     app.service('authService', ["$http", "$q", "$location", function($http, $q, $location) {
         //TODO: Move to common configuration
@@ -520,32 +546,12 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 (function(app) {
 
 })(angular.module('track-chat.dashboard'));
-(function (app) {
-    app.controller('HomeController', ["$scope", "home", "uiGmapGoogleMapApi", function ($scope, home,uiGmapGoogleMapApi) {
-        $scope.title = home.title;
-
-        $scope.map = { center: { latitude: -37.8602828, longitude: 145.079616 }, zoom: 8 };
-    }]);
-})(angular.module('track-chat.home'));
 (function(app) {
-	app.directive('home', function() {
-		return {
-			restrict : 'E',
-			templateUrl : 'modules/home/templates/directives/homeTemplate.tpl.html',
-			link : function(scope, element, attrs) {
-				scope.message = 'Active Clients';
-			}
-		};
-	});
-})(angular.module('track-chat.home'));
+	app.controller('PingController', ["$scope", function($scope) {
+		$scope.ping = '';
 
-(function(app) {
-	app.service('home', function() {
-		return {
-			title : 'Home service'
-		};
-	});
-})(angular.module('track-chat.home'));
+	}]);
+})(angular.module('track-chat.ping'));
 (function(app) {
 
 })(angular.module('track-chat.ping'));
@@ -606,13 +612,6 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 
 })(angular.module('track-chat.profile'));
 (function (app) {
-    app.service('User', function () {
-        return {
-            title: 'Registration service'
-        };
-    });
-})(angular.module('track-chat.register'));
-(function (app) {
     app.controller('RegisterController', ['$scope', '$location', 'userService', function ($scope, $location, userService) {
         $scope.register = 'Register';
 
@@ -647,12 +646,13 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 
     }]);
 })(angular.module('track-chat.register'));
-(function(app) {
-	app.controller('PingController', ["$scope", function($scope) {
-		$scope.ping = '';
-
-	}]);
-})(angular.module('track-chat.ping'));
+(function (app) {
+    app.service('User', function () {
+        return {
+            title: 'Registration service'
+        };
+    });
+})(angular.module('track-chat.register'));
 angular.module('track-chat.3rdparty', ['ngRoute', 'ngResource', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'uiGmapgoogle-maps']);
 
 angular.module('track-chat', ['config', 'track-chat.common', 'track-chat.3rdparty', 'track-chat.home', 'track-chat.ping', 'track-chat.login','track-chat.register', 'track-chat.dashboard', 'track-chat.profile']);
