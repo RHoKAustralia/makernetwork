@@ -29,7 +29,7 @@ gulp.task('serve', ['build', 'watch'], function () {
 gulp.task('package', ['build'], function() {
   gulp.src(['build/**/*.*']).pipe(gulp.dest('dist/build'))
   gulp.src(['modules/**/*.html']).pipe(gulp.dest('dist/modules'))
-  gulp.src(['bower_components/**/*.*']).pipe(gulp.dest('dist/bower_components'))
+  // gulp.src(['bower_components/**/*.*']).pipe(gulp.dest('dist/bower_components'))
   gulp.src(['img/**/*.*']).pipe(gulp.dest('dist/img'))
   gulp.src(['CNAME', 'index.html', 'user_management.html']).pipe(gulp.dest('dist'))
 });
