@@ -48,6 +48,7 @@
         console.log(users);
 
         $scope.users = users.results;
+        google.maps.event.trigger($scope.map, 'resize');
 
         /*
          $scope.profileImg = (user.photo || {}).url || "/img/user_unknown.png";
@@ -88,6 +89,7 @@
         console.log(users);
 
         $scope.user_tools = users.results;
+        google.maps.event.trigger($scope.map, 'resize');
        }, function (err) {
         alert("Users not found");
       });
@@ -96,6 +98,25 @@
         console.log(users);
 
         $scope.user_projects = users.results;
+        google.maps.event.trigger($scope.map, 'resize');
+       }, function (err) {
+        alert("Users not found");
+      });
+
+      userService.listUsersWithSkills('').then(function (users) {
+        console.log(users);
+
+        $scope.user_skills = users.results;
+        google.maps.event.trigger($scope.map, 'resize');
+       }, function (err) {
+        alert("Users not found");
+      });
+
+      userService.listUsersWithSpaces('').then(function (users) {
+        console.log(users);
+
+        $scope.user_spaces = users.results;
+        google.maps.event.trigger($scope.map, 'resize');
        }, function (err) {
         alert("Users not found");
       });

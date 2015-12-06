@@ -94,9 +94,7 @@
         };
 
         this.listUsers = function(filter) {
-            reqparams = {
-                include: "tool"
-            };
+            reqparams = {};
             var req = makeRequest('GET', '/users', reqparams);
             var df = $q.defer();
             $http(req).then(function(response) {
@@ -109,8 +107,7 @@
 
         this.listUsersWithTools = function(filter) {
             reqparams = {
-                where: {"tools":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Tool"}}},
-                include: "tool"
+                where: {"tools":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Tool"}}}
             };
             var req = makeRequest('GET', '/users', reqparams);
             var df = $q.defer();
@@ -126,8 +123,39 @@
 
         this.listUsersWithProjects = function(filter) {
             reqparams = {
-                where: {"projects":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Project"}}},
-                include: "project"
+                where: {"projects":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Project"}}}
+            };
+            var req = makeRequest('GET', '/users', reqparams);
+            var df = $q.defer();
+
+            $http(req).then(function(response) {
+                df.resolve(response.data);
+            }, function(err) {
+                df.reject(err);
+            });
+            return df.promise;
+
+        };
+
+        this.listUsersWithSkills = function(filter) {
+            reqparams = {
+                where: {"skills":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Skill"}}}
+            };
+            var req = makeRequest('GET', '/users', reqparams);
+            var df = $q.defer();
+
+            $http(req).then(function(response) {
+                df.resolve(response.data);
+            }, function(err) {
+                df.reject(err);
+            });
+            return df.promise;
+
+        };
+
+        this.listUsersWithSpaces = function(filter) {
+            reqparams = {
+                where: {"spaces":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Space"}}}
             };
             var req = makeRequest('GET', '/users', reqparams);
             var df = $q.defer();
