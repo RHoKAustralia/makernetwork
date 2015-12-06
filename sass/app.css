@@ -1,3 +1,11 @@
+* {
+    margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: normal;
@@ -5,6 +13,17 @@ body {
   font-size: 22px;
   background-color: #fff;
   color: #0a0a0a;
+}
+
+.main-container {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -100px; /* the bottom margin is the negative value of the footer's height */
+}
+
+.push {
+  height: 100px; /* .push must be the same height as .footer */
 }
 
 .jumbotron h1 {
@@ -15,6 +34,7 @@ body {
 	background-color: #96bc3d;
   padding-top: 38px;
   padding-bottom: 28px;
+  height: 100px; 
 }
 
 #jumbotron-footer p {

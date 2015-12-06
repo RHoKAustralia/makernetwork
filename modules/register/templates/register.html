@@ -1,58 +1,35 @@
-<div ng-controller="RegisterController" class="register-page">
-    <h1>{{register}}</h1>
-
-    <form class="form-horizontal">
-        <fieldset>
-            <div class="form-group">
-                <label class="col-md-2 control-label"  for="name">First Name</label>
-
-                <div class="col-md-10">
-                    <input class="form-control" id="name" ng-model="user.first" type="text" placeholder="Name">
-                </div>
+<div ng-controller="RegisterController">
+    <div class="jumbotron jumbotron-1 jumbotron-login">
+        <nav class="navbar">
+          <div class="container">
+            <div class="navbar-left">
+                <a href="/"><img src="/img/logo.png"></img></a>
             </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label"  for="lastname">Last Name</label>
+          </div>
+        </nav>
 
-                <div class="col-md-10">
-                    <input class="form-control" id="lastname" ng-model="user.last" type="text" placeholder="Name">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label" for="password">Password</label>
+        <h1>{{register}}</h1>
 
-                <div class="col-md-10">
-                    <input class="form-control" ng-model="user.password" id="password" type="password" placeholder="Password">
+        <form class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <input class="form-control" id="name" ng-model="user.first" type="text" placeholder="First Name">
+                    <input class="form-control" id="lastname" ng-model="user.last" type="text" placeholder="Last Name">
+                        <input class="form-control" ng-model="user.password" id="password" type="password" placeholder="Password">
+                        <input class="form-control" ng-model="user.email" id="email" type="email" placeholder="Email">
+                        <input class="form-control" ng-model="user.phone" id="phone" type="text" placeholder="Phone number">
+                <!-- 
+                <div class="form-group">
+                        <input class="form-control" ng-model="user.latitude" id="latitude" type="number" placeholder="Location">
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label" for="email">Email</label>
+                <div class="form-group">
+                        <input class="form-control" ng-model="user.longitude" id="longitude" type="number" placeholder="Location">
+                </div>
+                --> 
 
-                <div class="col-md-10">
-                    <input class="form-control" ng-model="user.email" id="email" type="email" placeholder="Email">
+                    <a class="btn btn-primary btn-home" ng-click="registerClick()">Register</a>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label" for="phone">Phone Number</label>
-
-                <div class="col-md-10">
-                    <input class="form-control" ng-model="user.phone" id="phone" type="text" placeholder="Phone number">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label" for="latitude">Latitude</label>
-
-                <div class="col-md-10">
-                    <input class="form-control" ng-model="user.latitude" id="latitude" type="number" placeholder="Location">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label" for="longitude">Longitude</label>
-
-                <div class="col-md-10">
-                    <input class="form-control" ng-model="user.longitude" id="longitude" type="number" placeholder="Location">
-                </div>
-            </div>
-            <a class="btn btn-raised btn-primary" ng-click="registerClick()">Register</a>
-        </fieldset>
-    </form>
+            </fieldset>
+        </form>
+    </div>
 </div>
