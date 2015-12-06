@@ -8,7 +8,7 @@
                         <img class="img-circle img-responsive profile-image" ng-src="{{profileImg}}" />
                     </div>
                     <div class="col-sm-7 col-md-8">
-                        <h2>{{name}}</h2>
+                        <h2>{{name}} {{isMe ? "(You)" : ""}}</h2>
                         <p>{{about}}</p>
                     </div>
                 </div>
@@ -17,8 +17,8 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <ul id="profiletabs" class="nav nav-pills" role="tablist">
-                    <li class="active"><a href="#skills" role="tab" data-toggle="tab">Skills</a></li>
-                    <li><a href="#spaces" role="tab" data-toggle="tab">Spaces</a></li>
+                    <li class="active"><a href="#spaces" role="tab" data-toggle="tab">Spaces</a></li>
+                    <li><a href="#skills" role="tab" data-toggle="tab">Skills</a></li>
                     <li><a href="#tools" role="tab" data-toggle="tab">Tools</a></li>
                     <li><a href="#projects" role="tab" data-toggle="tab">Projects</a></li>
                 </ul>
@@ -26,11 +26,37 @@
         </div>
         <div class="row">
             <div class="tab-content">
-                <div id="skills" class="tab-pane active">
+                <div id="spaces" class="tab-pane active">
                     <div class="tab-content-container">
-                        <div class="row" ng-repeat="skill in skills">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="list-group">
+                                    <div class="list-group-item" ng-repeat="space in related_spaces">
+                                        <h4 class="list-group-item-header title">{{space.name}}</h4>
+                                        <p class="list-group-item-text address">{{space.address}} {{space.city}} {{space.state}}</p>
+                                        <p class="list-group-item-text country">{{space.country}}</p>
+                                        <p class="list-group-item-text description">{{space.description}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <ui-gmap-google-map center="map.center" zoom="map.zoom"
+                                    draggable="true" options="options" bounds="map.bounds">
+                                    <ui-gmap-markers models="placeMarkers" coords="'self'" icon="'icon'"> 
+                                        <ui-gmap-windows show="show">
+                                            <div ng-non-bindable>{{title}}</div>
+                                        </ui-gmap-windows> 
+                                    </ui-gmap-markers> 
+                                </ui-gmap-google-map>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="skills" class="tab-pane">
+                    <div class="tab-content-container">
+                        <div class="row" ng-repeat="skill in related_skills">
                             <div class="col-xs-5 col-md-3">
-                                <span class="badge pull-right">{{skill.name}}</span>
+                                <span class="badge pull-right">{{skill.title}}</span>
                             </div>
                             <div class="col-xs-7 col-md-9">
                                 
@@ -38,27 +64,9 @@
                         </div>
                     </div>
                 </div>
-                <div id="spaces" class="tab-pane">
-                    <div class="tab-content-container">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-repeat="space in spaces">
-                                <div class="product-chooser-item selected">
-                                    <img ng-src="{{space.imageUrl}}" class="img-rounded col-xs-4 col-sm-4 col-md-12 col-lg-12" alt="Mobile and Desktop">
-                                    <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
-                                        <h2 class="title">{{space.name}}</h2>
-                                        <p class="address">{{space.address}} {{space.city}} {{space.state}}</p>
-                                        <p class="country">{{space.country}}</p>
-                                        <p class="description">{{space.description}}</p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div id="tools" class="tab-pane">
                     <div class="tab-content-container">
-                        <div class="row" ng-repeat="tool in tools">
+                        <div class="row" ng-repeat="tool in related_tools">
                             <div class="col-xs-5 col-md-3">
                                 <span class="badge pull-right">{{tool.name}}</span>
                             </div>
@@ -71,7 +79,7 @@
                 <div id="projects" class="tab-pane">
                     <div class="tab-content-container">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-repeat="project in projects">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-repeat="project in related_projects">
                                 <div class="product-chooser-item selected">
                                     <img ng-src="{{project.imageUrl}}" class="img-rounded col-xs-4 col-sm-4 col-md-12 col-lg-12" alt="Mobile and Desktop">
                                     <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">

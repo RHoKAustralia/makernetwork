@@ -1,20 +1,18 @@
 <div ng-controller="LoginController">
-    <h1>{{login}}</h1>
-
-
-        <div class="form-group label-floating">
-
-            <label class="control-label" for="username">Email Address</label>
-
-            <div class="input-group">
-                <input class="form-control" id="username" type="text" ng-model="username">
-            </div>
-            <label class="control-label" for="password">Password</label>
-
-            <div class="input-group">
-                <input class="form-control" id="password" type="password" ng-model="password">
-            </div>
-            <a class="btn btn-raised btn-primary" ng-click="loginClick()">Login</a>
-            <a class="btn btn-raised btn-primary btn-sm" href="#/register">Register</a>
+  <div class="jumbotron jumbotron-1 jumbotron-login">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-left">
+            <a href="/"><img src="/img/logo.png"></img></a>
         </div>
+      </div>
+    </nav>
+    <h1>{{login}}</h1>
+    <div class="form-group label-floating">
+        <input class="form-control" id="username" type="text" ng-model="username" placeholder="email">
+        <input class="form-control" id="password" type="password" ng-model="password" placeholder="password">
+        <a class="btn btn-primary btn-home" ng-click="loginClick()">Login</a>
+        <a class="btn btn-primary btn-home" href="#/register">Register</a>
+    </div>
+  </div>
 </div>

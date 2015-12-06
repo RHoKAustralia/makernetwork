@@ -1,4 +1,4 @@
-angular.module('track-chat.common', ['ngMaterial','uiGmapgoogle-maps']);
+angular.module('track-chat.common', ['uiGmapgoogle-maps']);
 angular.module('track-chat.dashboard', [ 'ui.router' ,'uiGmapgoogle-maps']);
 
 (function(app) {
@@ -88,6 +88,7 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 })(angular.module('track-chat.register'));
 (function(app) {
     app.service('authService', ["$http", "$q", "$location", function($http, $q, $location) {
+        //TODO: Move to common configuration
         var url = "https://api.parse.com/1";
         var appID = 'LkDEH7w5Ls45AWY88HvMBPQQrnaQtsWE1IuizM85';
         var restApiKey = 'MRze2gVwcEO0349p2YWhU55gOPNbE8y8oGEBsi4u';
@@ -221,6 +222,7 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 
 (function(app) {
     app.service('userService', ["$http", "$q", function($http, $q) {
+        //TODO: Move to common configuration
         var url = "https://api.parse.com/1";
         var appID = 'LkDEH7w5Ls45AWY88HvMBPQQrnaQtsWE1IuizM85';
         var restApiKey = 'MRze2gVwcEO0349p2YWhU55gOPNbE8y8oGEBsi4u';
@@ -244,8 +246,76 @@ angular.module('track-chat.register', [ 'ui.router' ]);
             return $http(req);
         };
         
-        this.getUserById = function(userId) {
+        this.getUserById = function(userId, bFullDetails) {
             var req = makeRequest('GET', '/users/' + userId);
+            var df = $q.defer();
+            var up = $http(req);
+            
+            //TODO: This is undesirable. I want all this related information in one request!
+            if (bFullDetails) {
+                
+                var reqProjects = makeRequest('GET', '/classes/Project');
+                reqProjects.params = {
+                    where: {"$relatedTo":{"object":{"__type":"Pointer","className":"_User","objectId":userId},"key":"projects"}}
+                };
+                var pProjects = $http(reqProjects);
+                
+                var reqSkills = makeRequest("GET", "/classes/Skill");
+                reqSkills.params = {
+                    where: {"$relatedTo":{"object":{"__type":"Pointer","className":"_User","objectId":userId},"key":"skills"}}
+                };
+                var pSkills = $http(reqSkills);
+                
+                var reqTool = makeRequest("GET", "/classes/Tool");
+                reqTool.params = {
+                    where: {"$relatedTo":{"object":{"__type":"Pointer","className":"_User","objectId":userId},"key":"tools"}}
+                };
+                var pTool = $http(reqTool);
+                
+                var reqSpaces = makeRequest("GET", "/classes/Space");
+                reqSpaces.params = {
+                    where: {"$relatedTo":{"object":{"__type":"Pointer","className":"_User","objectId":userId},"key":"spaces"}}
+                };
+                
+                var pSpaces = $http(reqSpaces);
+                
+                $q.all([
+                    up,
+                    pProjects,
+                    pSkills,
+                    pTool,
+                    pSpaces
+                ]).then(function(results) {
+                    var userDetails = results[0].data;
+                    var relatedProjects = results[1].data.results;
+                    var relatedSkills = results[2].data.results
+                    var relatedTools = results[3].data.results;
+                    var relatedSpaces = results[4].data.results;
+                    
+                    for (var i = 0; i < relatedProjects.length; i++) {
+                        relatedProjects[i].imageUrl = (relatedProjects[i].photo || {}).url || null;
+                    }
+                    
+                    userDetails.related_projects = relatedProjects;
+                    userDetails.related_skills = relatedSkills;
+                    userDetails.related_tools = relatedTools;
+                    userDetails.related_spaces = relatedSpaces;
+                    df.resolve(userDetails);
+                }, function(err) {
+                    df.reject(err);
+                });
+            } else {
+                up.then(function(response) {
+                    df.resolve(response.data);
+                }, function(err) {
+                    df.reject(err);
+                });
+            }
+            return df.promise;
+        };
+
+        this.listUsers = function(filter) {
+            var req = makeRequest('GET', '/users');
             var df = $q.defer();
             $http(req).then(function(response) {
                 df.resolve(response.data);
@@ -253,22 +323,93 @@ angular.module('track-chat.register', [ 'ui.router' ]);
                 df.reject(err);
             });
             return df.promise;
-        };
+        }
     }]);
 })(angular.module('track-chat.common'));
 (function (app) {
-    app.controller('DashboardController', ['$scope', '$location', 'uiGmapGoogleMapApi', 'authService', function ($scope, $location, uiGmapGoogleMapApi, authService) {
-        authService.checkIfLoginRequired(function() {
-            var me = authService.getMyDetails();
-            $scope.myFullName = me.firstName + " " + me.lastName;
-            $scope.myProfilePhoto = (me.photo || {}).url || "/img/user_unknown.png";
-            $scope.dashboard = '';
-            uiGmapGoogleMapApi.then(function (maps) {
+  app.controller('DashboardController', ["$scope", "$location", "uiGmapGoogleMapApi", "authService", "userService", function ($scope, $location, uiGmapGoogleMapApi, authService, userService) {
+
+      $scope.map = {center: {latitude: -37.8602828, longitude: 145.079616}, zoom: 8};
+
+      $scope.options = {
+          scrollwheel: false
+      };
+      $scope.randomMarkers = [];
+
+      var createRandomMarker = function (lat, long, user_id, username) {
+          var latitude = lat;
+          var longitude = long;
+          var ret = {
+              latitude: latitude,
+              longitude: longitude,
+              title: username,
+              show: false
+          }
+          ret.onClick = function () {
+              ret.show = !ret.show;
+          };
+          ret["id"] = user_id;
+          return ret;
+      };
+
+      var markers = [];
+      markers.push(createRandomMarker(-37.8602828, 145.079616, 1, "This is a Pin with ID 1"));
+      markers.push(createRandomMarker(-38, 145, 2, "This is a Pin with ID 2"));
+
+      $scope.randomMarkers = markers;
+
+    authService.checkIfLoginRequired(function () {
+      var me = authService.getMyDetails();
+      $scope.myUserId = me.objectId;
+      $scope.myFullName = me.firstName + " " + me.lastName;
+      $scope.myProfilePhoto = (me.photo || {}).url || "/img/user_unknown.png";
+      $scope.dashboard = '';
+      uiGmapGoogleMapApi.then(function (maps) {
                 // alert("Map is ready");
                 console.log(maps);
-            });
-        });
-    }]);
+              });
+
+      userService.listUsers('').then(function (users) {
+        console.log(users);
+
+        $scope.users = users.results;
+
+        /*
+         $scope.profileImg = (user.photo || {}).url || "/img/user_unknown.png";
+         $scope.name = user.firstName + " " + user.lastName;
+         $scope.isMe = (user.objectId == me.objectId);
+         $scope.about = user.bio;
+         $scope.skills = [
+         { name: "Advertising" },
+         { name: "Creative Strategy" },
+         { name: "Logo Design" },
+         { name: "Creative Direction" },
+         { name: "Art Direction" },
+         { name: "Graphic Design" },
+         { name: "Brand Development" },
+         { name: "Digital Strategy" },
+         { name: "Integrated Marketing" },
+         { name: "Typography" }
+         ];
+         $scope.tools = [
+         { name: "Spanner" },
+         { name: "Hammer" }
+         ];
+         $scope.projects = [
+         { imageUrl: "http://renswijnmalen.nl/bootstrap/desktop_mobile.png", status: "Help Wanted", name: "Activist Print", owner: "The Andy Warhol Museum",  description: "Activist Print is inspired by the long history of art being used to raise awareness of contemporary issues and inspire change" },
+         { imageUrl: "http://renswijnmalen.nl/bootstrap/mobile.png", status: "In Progress", name: "Radical Renewable Art + Activism Fund", owner: "Ellie Harrison", description: "INSERT DESCRIPTION HERE" },
+         { imageUrl: "http://renswijnmalen.nl/bootstrap/desktop.png", status: "Completed", name: "Coorain Calendar 2016", owner: "Ellie Harrison", description: "INSERT DESCRIPTION HERE" },
+         { imageUrl: "http://renswijnmalen.nl/bootstrap/mobile.png", status: "Completed", name: "Help fund the rebuild of the Delish Glass furnace", owner: "Chelsea and Jeremy Griffith", description: "INSERT DESCRIPTION HERE" }
+         ];
+         $scope.spaces = [
+         { imageUrl: "http://renswijnmalen.nl/bootstrap/desktop_mobile.png", name: "Swinburne University of Technology", description: "This is the venue for the RHoK 2015 summer hackathon", address: "John St", city: "Hawthorn", state: "Victoria", country: "Australia" }
+         ];
+         */
+       }, function (err) {
+        alert("Users not found");
+      });
+    });
+  }]);
 })(angular.module('track-chat.dashboard'));
 (function(app) {
 
@@ -276,28 +417,8 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 (function (app) {
     app.controller('HomeController', ["$scope", "home", "uiGmapGoogleMapApi", function ($scope, home,uiGmapGoogleMapApi) {
         $scope.title = home.title;
-        $scope.works = {
-            seo: {
-                totalclients: 26,
-                keywords: 100,
-                firstpage: 40,
-                secondpage: 36,
-                seoreq: 15,
-                tasks: 25
-            },
-            adwords: {
-                totalclients: 20,
-                active: 15,
-                inactive: 5,
-                tasks: 25
-            },
-            web: {
-                totalclients: 20,
-                active: 15,
-                inactive: 5,
-                tasks: 25
-            }
-        };
+
+        $scope.map = { center: { latitude: -37.8602828, longitude: 145.079616 }, zoom: 8 };
     }]);
 })(angular.module('track-chat.home'));
 (function(app) {
@@ -349,38 +470,32 @@ angular.module('track-chat.register', [ 'ui.router' ]);
     app.controller('ProfileController', ['$scope', '$stateParams', 'authService', 'userService', function($scope, $stateParams, authService, userService) {
         authService.checkIfLoginRequired(function() {
             var me = authService.getMyDetails();
+            $scope.myUserId = me.objectId;
             $scope.myFullName = me.firstName + " " + me.lastName;
             $scope.myProfilePhoto = (me.photo || {}).url || "/img/user_unknown.png";
             
-            userService.getUserById($stateParams.userId).then(function(user) {
+            function getPlaceMarkers(spaces) {
+                var locations = [];
+                for (var i = 0; i < spaces.length; i++) {
+                    if (spaces[i].location) {
+                        locations.push({ id: spaces[i].objectId, longitude: spaces[i].location.longitude, latitude: spaces[i].location.latitude });
+                    }
+                }
+                return locations;
+            }
+            
+            userService.getUserById($stateParams.userId, true).then(function(user) {
+                $scope.map = {center: {latitude: -37.8602828, longitude: 145.079616}, zoom: 8};
+                $scope.placeMarkers = getPlaceMarkers(user.related_spaces);
+                
                 $scope.profileImg = (user.photo || {}).url || "/img/user_unknown.png";
                 $scope.name = user.firstName + " " + user.lastName;
+                $scope.isMe = (user.objectId == me.objectId);
                 $scope.about = user.bio;
-                $scope.skills = [
-                    { name: "Advertising" },
-                    { name: "Creative Strategy" },
-                    { name: "Logo Design" },
-                    { name: "Creative Direction" },
-                    { name: "Art Direction" },
-                    { name: "Graphic Design" },
-                    { name: "Brand Development" },
-                    { name: "Digital Strategy" },
-                    { name: "Integrated Marketing" },
-                    { name: "Typography" }
-                ];
-                $scope.tools = [
-                    { name: "Spanner" },
-                    { name: "Hammer" }
-                ];
-                $scope.projects = [
-                    { imageUrl: "http://renswijnmalen.nl/bootstrap/desktop_mobile.png", status: "Help Wanted", name: "Activist Print", owner: "The Andy Warhol Museum",  description: "Activist Print is inspired by the long history of art being used to raise awareness of contemporary issues and inspire change" },
-                    { imageUrl: "http://renswijnmalen.nl/bootstrap/mobile.png", status: "In Progress", name: "Radical Renewable Art + Activism Fund", owner: "Ellie Harrison", description: "INSERT DESCRIPTION HERE" },
-                    { imageUrl: "http://renswijnmalen.nl/bootstrap/desktop.png", status: "Completed", name: "Coorain Calendar 2016", owner: "Ellie Harrison", description: "INSERT DESCRIPTION HERE" },
-                    { imageUrl: "http://renswijnmalen.nl/bootstrap/mobile.png", status: "Completed", name: "Help fund the rebuild of the Delish Glass furnace", owner: "Chelsea and Jeremy Griffith", description: "INSERT DESCRIPTION HERE" }
-                ];
-                $scope.spaces = [
-                    { imageUrl: "http://renswijnmalen.nl/bootstrap/desktop_mobile.png", name: "Swinburne University of Technology", description: "This is the venue for the RHoK 2015 summer hackathon", address: "John St", city: "Hawthorn", state: "Victoria", country: "Australia" }
-                ];
+                $scope.related_skills = user.related_skills;
+                $scope.related_tools = user.related_tools;
+                $scope.related_projects = user.related_projects;
+                $scope.related_spaces = user.related_spaces;
             }, function(err) {
                 alert("User not found");
             });

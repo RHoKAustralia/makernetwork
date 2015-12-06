@@ -6,7 +6,6 @@
   	<input type="text" name="name" id="name" placeholder="search">
   </div>
   <div id="navbar-dashboard-right">
-  	<span>{{myFullName}}</span>
-    <a href="/"><img ng-src="{{myProfilePhoto}}"></img></a>
+    <a ng-href="#/profile/{{myUserId}}"><span>{{myFullName}}</span> <img ng-src="{{myProfilePhoto}}"></img></a>
   </div>
 </div>
