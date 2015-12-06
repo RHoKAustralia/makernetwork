@@ -14,35 +14,6 @@ angular.module('track-chat.dashboard', [ 'ui.router' ,'uiGmapgoogle-maps']);
 		});
 	}]);
 })(angular.module('track-chat.dashboard'));
-angular.module('track-chat.login', [ 'ui.router' ]);
-
-(function(app) {
-    app.config(["$stateProvider", function($stateProvider) {
-        $stateProvider.state('login', {
-            url : '/login',
-            views : {
-                "contents" : {
-                    templateUrl : 'modules/login/templates/login.html'
-                }
-            }
-        });
-    }]);
-})(angular.module('track-chat.login'));
-angular.module('track-chat.home', [ 'ui.router','track-chat.common','uiGmapgoogle-maps' ]);
-
-(function(app) {
-	app.config(["$stateProvider", function($stateProvider) {
-
-		$stateProvider.state('home', {
-			url : '/home',
-			views : {
-				"contents" : {
-					templateUrl : 'modules/home/templates/home.html'
-				}
-			}
-		});
-	}]);
-})(angular.module('track-chat.home'));
 angular.module('track-chat.ping', [ 'ui.router' ]);
 
 (function(app) {
@@ -58,6 +29,20 @@ angular.module('track-chat.ping', [ 'ui.router' ]);
 		});
 	}]);
 })(angular.module('track-chat.ping'));
+angular.module('track-chat.login', [ 'ui.router' ]);
+
+(function(app) {
+    app.config(["$stateProvider", function($stateProvider) {
+        $stateProvider.state('login', {
+            url : '/login',
+            views : {
+                "contents" : {
+                    templateUrl : 'modules/login/templates/login.html'
+                }
+            }
+        });
+    }]);
+})(angular.module('track-chat.login'));
 angular.module('track-chat.profile', [ 'ui.router' ]);
 (function(app) {
     app.config(["$stateProvider", function($stateProvider) {
@@ -71,6 +56,21 @@ angular.module('track-chat.profile', [ 'ui.router' ]);
         });
     }]);
 })(angular.module('track-chat.profile'));
+angular.module('track-chat.home', [ 'ui.router','track-chat.common','uiGmapgoogle-maps' ]);
+
+(function(app) {
+	app.config(["$stateProvider", function($stateProvider) {
+
+		$stateProvider.state('home', {
+			url : '/home',
+			views : {
+				"contents" : {
+					templateUrl : 'modules/home/templates/home.html'
+				}
+			}
+		});
+	}]);
+})(angular.module('track-chat.home'));
 angular.module('track-chat.register', [ 'ui.router' ]);
 
 (function(app) {
@@ -316,9 +316,7 @@ angular.module('track-chat.register', [ 'ui.router' ]);
         };
 
         this.listUsers = function(filter) {
-            reqparams = {
-                include: "tool"
-            };
+            reqparams = {};
             var req = makeRequest('GET', '/users', reqparams);
             var df = $q.defer();
             $http(req).then(function(response) {
@@ -331,8 +329,7 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 
         this.listUsersWithTools = function(filter) {
             reqparams = {
-                where: {"tools":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Tool"}}},
-                include: "tool"
+                where: {"tools":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Tool"}}}
             };
             var req = makeRequest('GET', '/users', reqparams);
             var df = $q.defer();
@@ -348,8 +345,39 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 
         this.listUsersWithProjects = function(filter) {
             reqparams = {
-                where: {"projects":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Project"}}},
-                include: "project"
+                where: {"projects":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Project"}}}
+            };
+            var req = makeRequest('GET', '/users', reqparams);
+            var df = $q.defer();
+
+            $http(req).then(function(response) {
+                df.resolve(response.data);
+            }, function(err) {
+                df.reject(err);
+            });
+            return df.promise;
+
+        };
+
+        this.listUsersWithSkills = function(filter) {
+            reqparams = {
+                where: {"skills":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Skill"}}}
+            };
+            var req = makeRequest('GET', '/users', reqparams);
+            var df = $q.defer();
+
+            $http(req).then(function(response) {
+                df.resolve(response.data);
+            }, function(err) {
+                df.reject(err);
+            });
+            return df.promise;
+
+        };
+
+        this.listUsersWithSpaces = function(filter) {
+            reqparams = {
+                where: {"spaces":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Space"}}}
             };
             var req = makeRequest('GET', '/users', reqparams);
             var df = $q.defer();
@@ -414,6 +442,7 @@ angular.module('track-chat.register', [ 'ui.router' ]);
         console.log(users);
 
         $scope.users = users.results;
+        google.maps.event.trigger($scope.map, 'resize');
 
         /*
          $scope.profileImg = (user.photo || {}).url || "/img/user_unknown.png";
@@ -454,6 +483,7 @@ angular.module('track-chat.register', [ 'ui.router' ]);
         console.log(users);
 
         $scope.user_tools = users.results;
+        google.maps.event.trigger($scope.map, 'resize');
        }, function (err) {
         alert("Users not found");
       });
@@ -462,6 +492,25 @@ angular.module('track-chat.register', [ 'ui.router' ]);
         console.log(users);
 
         $scope.user_projects = users.results;
+        google.maps.event.trigger($scope.map, 'resize');
+       }, function (err) {
+        alert("Users not found");
+      });
+
+      userService.listUsersWithSkills('').then(function (users) {
+        console.log(users);
+
+        $scope.user_skills = users.results;
+        google.maps.event.trigger($scope.map, 'resize');
+       }, function (err) {
+        alert("Users not found");
+      });
+
+      userService.listUsersWithSpaces('').then(function (users) {
+        console.log(users);
+
+        $scope.user_spaces = users.results;
+        google.maps.event.trigger($scope.map, 'resize');
        }, function (err) {
         alert("Users not found");
       });
@@ -471,6 +520,15 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 (function(app) {
 
 })(angular.module('track-chat.dashboard'));
+(function(app) {
+	app.controller('PingController', ["$scope", function($scope) {
+		$scope.ping = '';
+
+	}]);
+})(angular.module('track-chat.ping'));
+(function(app) {
+
+})(angular.module('track-chat.ping'));
 (function(app) {
     app.controller('LoginController', ['$scope', '$location', 'authService', function($scope, $location, authService) {
         $scope.login = 'Login';
@@ -488,41 +546,6 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 (function(app) {
 
 })(angular.module('track-chat.login'));
-(function (app) {
-    app.controller('HomeController', ["$scope", "home", "uiGmapGoogleMapApi", function ($scope, home,uiGmapGoogleMapApi) {
-        $scope.title = home.title;
-
-        $scope.map = { center: { latitude: -37.8602828, longitude: 145.079616 }, zoom: 8 };
-    }]);
-})(angular.module('track-chat.home'));
-(function(app) {
-	app.directive('home', function() {
-		return {
-			restrict : 'E',
-			templateUrl : 'modules/home/templates/directives/homeTemplate.tpl.html',
-			link : function(scope, element, attrs) {
-				scope.message = 'Active Clients';
-			}
-		};
-	});
-})(angular.module('track-chat.home'));
-
-(function(app) {
-	app.service('home', function() {
-		return {
-			title : 'Home service'
-		};
-	});
-})(angular.module('track-chat.home'));
-(function(app) {
-	app.controller('PingController', ["$scope", function($scope) {
-		$scope.ping = '';
-
-	}]);
-})(angular.module('track-chat.ping'));
-(function(app) {
-
-})(angular.module('track-chat.ping'));
 (function(app) {
     app.controller('ProfileController', ['$scope', '$stateParams', 'authService', 'userService', function($scope, $stateParams, authService, userService) {
         authService.checkIfLoginRequired(function() {
@@ -562,6 +585,32 @@ angular.module('track-chat.register', [ 'ui.router' ]);
 (function(app) {
 
 })(angular.module('track-chat.profile'));
+(function (app) {
+    app.controller('HomeController', ["$scope", "home", "uiGmapGoogleMapApi", function ($scope, home,uiGmapGoogleMapApi) {
+        $scope.title = home.title;
+
+        $scope.map = { center: { latitude: -37.8602828, longitude: 145.079616 }, zoom: 8 };
+    }]);
+})(angular.module('track-chat.home'));
+(function(app) {
+	app.directive('home', function() {
+		return {
+			restrict : 'E',
+			templateUrl : 'modules/home/templates/directives/homeTemplate.tpl.html',
+			link : function(scope, element, attrs) {
+				scope.message = 'Active Clients';
+			}
+		};
+	});
+})(angular.module('track-chat.home'));
+
+(function(app) {
+	app.service('home', function() {
+		return {
+			title : 'Home service'
+		};
+	});
+})(angular.module('track-chat.home'));
 (function (app) {
     app.controller('RegisterController', ['$scope', '$location', 'userService', function ($scope, $location, userService) {
         $scope.register = 'Register';
