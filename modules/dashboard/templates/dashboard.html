@@ -40,23 +40,51 @@
           </div>
           <div id="spaces" class="tab-pane">
             <div class="tab-content-container">
-              <div class="row">
-
-              </div>
+            </div>
+          </div>
+          <div id="skills" class="tab-pane">
+            <div class="tab-content-container">
             </div>
           </div>
           <div id="tools" class="tab-pane">
             <div class="tab-content-container">
-              <div class="row" ng-repeat="tool in tools">
-
+              <div class="col-sm-4 col-md-offset-2 col-md-4">
+                <div class="row dashboard-user-info" ng-repeat="user in user_tools | filter:search.query">
+                  <div class="col-sm-3 col-md-4">
+                      <img class="img-circle img-responsive dashboard-profile-image" ng-src="{{(user.photo || {}).url || '/img/user_unknown.png'}}" />
+                  </div>
+                  <a ng-href="#/profile/{{user.objectId}}"><div class="dashboard-profile-name">{{user.firstName}} {{user.lastName}}</div></a>
+                  <div class="dashboard-profile-email">{{user.email}}</div>
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-4">
+                  <ui-gmap-google-map center="map.center" zoom="map.zoom"
+                                      draggable="true" options="options" bounds="map.bounds">
+                      <ui-gmap-markers models="randomMarkers" coords="'self'" icon="'icon'"
+                                       click="onClick"> <ui-gmap-windows show="show">
+                          <div ng-non-bindable>{{title}}</div>
+                      </ui-gmap-windows> </ui-gmap-markers> </ui-gmap-google-map>
               </div>
             </div>
           </div>
           <div id="projects" class="tab-pane">
             <div class="tab-content-container">
-              <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-repeat="project in projects">
+              <div class="col-sm-4 col-md-offset-2 col-md-4">
+                <div class="row dashboard-user-info" ng-repeat="user in user_projects | filter:search.query">
+                  <div class="col-sm-3 col-md-4">
+                      <img class="img-circle img-responsive dashboard-profile-image" ng-src="{{(user.photo || {}).url || '/img/user_unknown.png'}}" />
+                  </div>
+                  <a ng-href="#/profile/{{user.objectId}}"><div class="dashboard-profile-name">{{user.firstName}} {{user.lastName}}</div></a>
+                  <div class="dashboard-profile-email">{{user.email}}</div>
                 </div>
+              </div>
+              <div class="col-sm-4 col-md-4">
+                  <ui-gmap-google-map center="map.center" zoom="map.zoom"
+                                      draggable="true" options="options" bounds="map.bounds">
+                      <ui-gmap-markers models="randomMarkers" coords="'self'" icon="'icon'"
+                                       click="onClick"> <ui-gmap-windows show="show">
+                          <div ng-non-bindable>{{title}}</div>
+                      </ui-gmap-windows> </ui-gmap-markers> </ui-gmap-google-map>
               </div>
             </div>
           </div>
