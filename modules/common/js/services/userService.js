@@ -69,6 +69,11 @@
                     var relatedSkills = results[2].data.results
                     var relatedTools = results[3].data.results;
                     var relatedSpaces = results[4].data.results;
+                    
+                    for (var i = 0; i < relatedProjects.length; i++) {
+                        relatedProjects[i].imageUrl = (relatedProjects[i].photo || {}).url || null;
+                    }
+                    
                     userDetails.related_projects = relatedProjects;
                     userDetails.related_skills = relatedSkills;
                     userDetails.related_tools = relatedTools;
