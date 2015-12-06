@@ -1,7 +1,34 @@
 (function (app) {
   app.controller('DashboardController', function ($scope, $location, uiGmapGoogleMapApi, authService, userService) {
 
-    $scope.map = {center: {latitude: -37.8602828, longitude: 145.079616}, zoom: 8};
+      $scope.map = {center: {latitude: -37.8602828, longitude: 145.079616}, zoom: 8};
+
+      $scope.options = {
+          scrollwheel: false
+      };
+      $scope.randomMarkers = [];
+
+      var createRandomMarker = function (lat, long, user_id, username) {
+          var latitude = lat;
+          var longitude = long;
+          var ret = {
+              latitude: latitude,
+              longitude: longitude,
+              title: username,
+              show: false
+          }
+          ret.onClick = function () {
+              ret.show = !ret.show;
+          };
+          ret["id"] = user_id;
+          return ret;
+      };
+
+      var markers = [];
+      markers.push(createRandomMarker(-37.8602828, 145.079616, 1, "This is a Pin with ID 1"));
+      markers.push(createRandomMarker(-38, 145, 2, "This is a Pin with ID 2"));
+
+      $scope.randomMarkers = markers;
 
     authService.checkIfLoginRequired(function () {
       var me = authService.getMyDetails();
@@ -18,6 +45,7 @@
         console.log(users);
 
         $scope.users = users.results;
+
         /*
          $scope.profileImg = (user.photo || {}).url || "/img/user_unknown.png";
          $scope.name = user.firstName + " " + user.lastName;
