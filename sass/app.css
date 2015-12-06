@@ -7,6 +7,9 @@ body {
   color: #0a0a0a;
 }
 
+.jumbotron h1 {
+  margin-bottom: 28px;
+}
 
 #jumbotron-footer {
 	background-color: #96bc3d;
