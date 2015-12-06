@@ -3,7 +3,9 @@ The Maker Network
 
 ## Running the application
 
-### Install node.js [https://nodejs.org/en/]
+### Install dependencies
+
+[node.js](https://nodejs.org/en/)
 
 ### Run installations
 
