@@ -11,6 +11,24 @@
     margin-right: auto;
 }
 
+.centered-pills { text-align:center; margin: inherit;}
+.centered-pills ul.nav-pills { display:inline-block; }
+.centered-pills li { display:inline; }
+.centered-pills a { float:left; }
+
+.nav-pills a {
+  font-size: 16px;
+}
+
+.nav > li > a {
+  padding: 5px 15px;
+  color: #96bc3d;
+}
+
+.nav-pills > li.active > a {
+  background-color: #96bc3d;
+}
+
 #profiletabs {
     display: block;
     margin-left: auto;

@@ -14,14 +14,17 @@
                 </div>
             </div>
         </div>
+        <br />
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <ul id="profiletabs" class="nav nav-pills" role="tablist">
-                    <li class="active"><a href="#spaces" role="tab" data-toggle="tab">Spaces</a></li>
-                    <li><a href="#skills" role="tab" data-toggle="tab">Skills</a></li>
+                <div class="centered-pills">
+                    <ul id="profiletabs" class="nav nav-pills" role="tablist">
+                    <li class="active"><a href="#skills" role="tab" data-toggle="tab">Skills</a></li>
+                    <li><a href="#spaces" role="tab" data-toggle="tab">Spaces</a></li>
                     <li><a href="#tools" role="tab" data-toggle="tab">Tools</a></li>
                     <li><a href="#projects" role="tab" data-toggle="tab">Projects</a></li>
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -55,11 +58,8 @@
                 <div id="skills" class="tab-pane">
                     <div class="tab-content-container">
                         <div class="row" ng-repeat="skill in related_skills">
-                            <div class="col-xs-5 col-md-3">
-                                <span class="badge pull-right">{{skill.title}}</span>
-                            </div>
-                            <div class="col-xs-7 col-md-9">
-                                
+                            <div style="text-align: center;">
+                                <div class="badge text-center">{{skill.title}}</div>
                             </div>
                         </div>
                     </div>
@@ -67,11 +67,8 @@
                 <div id="tools" class="tab-pane">
                     <div class="tab-content-container">
                         <div class="row" ng-repeat="tool in related_tools">
-                            <div class="col-xs-5 col-md-3">
-                                <span class="badge pull-right">{{tool.name}}</span>
-                            </div>
-                            <div class="col-xs-7 col-md-9">
-                                
+                            <div style="text-align: center;">
+                                <span class="badge">{{tool.name}}</span>
                             </div>
                         </div>
                     </div>
