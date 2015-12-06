@@ -5,10 +5,11 @@
         var appID = 'LkDEH7w5Ls45AWY88HvMBPQQrnaQtsWE1IuizM85';
         var restApiKey = 'MRze2gVwcEO0349p2YWhU55gOPNbE8y8oGEBsi4u';
         
-        function makeRequest(method, resource) {
+        function makeRequest(method, resource, params) {
             return {
                 method: method,
                 url: url + resource,
+                params: params,
                 headers: {
                     'X-Parse-Application-Id': appID,
                     'X-Parse-REST-API-Key': restApiKey,
@@ -93,7 +94,10 @@
         };
 
         this.listUsers = function(filter) {
-            var req = makeRequest('GET', '/users');
+            reqparams = {
+                include: "tool"
+            };
+            var req = makeRequest('GET', '/users', reqparams);
             var df = $q.defer();
             $http(req).then(function(response) {
                 df.resolve(response.data);
@@ -101,6 +105,40 @@
                 df.reject(err);
             });
             return df.promise;
-        }
+        };
+
+        this.listUsersWithTools = function(filter) {
+            reqparams = {
+                where: {"tools":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Tool"}}},
+                include: "tool"
+            };
+            var req = makeRequest('GET', '/users', reqparams);
+            var df = $q.defer();
+
+            $http(req).then(function(response) {
+                df.resolve(response.data);
+            }, function(err) {
+                df.reject(err);
+            });
+            return df.promise;
+
+        };
+
+        this.listUsersWithProjects = function(filter) {
+            reqparams = {
+                where: {"projects":{"$inQuery":{"where": {"name": {"$exists": true}},"className":"Project"}}},
+                include: "project"
+            };
+            var req = makeRequest('GET', '/users', reqparams);
+            var df = $q.defer();
+
+            $http(req).then(function(response) {
+                df.resolve(response.data);
+            }, function(err) {
+                df.reject(err);
+            });
+            return df.promise;
+
+        };
     });
 })(angular.module('track-chat.common'));

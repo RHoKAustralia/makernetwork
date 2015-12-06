@@ -83,6 +83,22 @@
        }, function (err) {
         alert("Users not found");
       });
+
+      userService.listUsersWithTools('').then(function (users) {
+        console.log(users);
+
+        $scope.user_tools = users.results;
+       }, function (err) {
+        alert("Users not found");
+      });
+
+      userService.listUsersWithProjects('').then(function (users) {
+        console.log(users);
+
+        $scope.user_projects = users.results;
+       }, function (err) {
+        alert("Users not found");
+      });
     });
   });
 })(angular.module('track-chat.dashboard'));
