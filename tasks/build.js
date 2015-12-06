@@ -30,10 +30,7 @@ var jsPaths = {
         "bower_components/angular-ui-router/release/angular-ui-router.js",
         "bower_components/dropdown.js/jquery.dropdown.js",
         "bower_components/arrive/releases/arrive-2.0.0.min.js",
-        "bower_components/bootstrap-material-design/dist/js/ripples.js",
-        "bower_components/bootstrap-material-design/dist/js/material.js",
         "bower_components/angular-aria/angular-aria.js",
-        "bower_components/angular-material/angular-material.js",
         "bower_components/lodash/lodash.js",
         "bower_components/angular-simple-logger/dist/angular-simple-logger.js",
         "bower_components/angular-google-maps/dist/angular-google-maps.js"
@@ -46,10 +43,7 @@ var cssPaths = {
         "bower_components/animate.css/animate.css",
         "bower_components/dropdown.js/jquery.dropdown.css",
         "bower_components/bootstrap/dist/css/bootstrap.css",
-        "bower_components/font-awesome/css/font-awesome.css",
-        "bower_components/bootstrap-material-design/dist/css/ripples.css",
-        "bower_components/bootstrap-material-design/dist/css/material-wfont.css",
-        "bower_components/angular-material/angular-material.css"
+        "bower_components/font-awesome/css/font-awesome.css"
     ]
 };
 
@@ -71,21 +65,16 @@ gulp.task('copy-images', function () {
 
 gulp.task('copy-static-maps', function () {
     gulp.src([
-        'bower_components/bootstrap/dist/css/*.map',
-        'bower_components/bootstrap-material-design/dist/css/*.map'
+        'bower_components/bootstrap/dist/css/*.map'
     ]).pipe(gulp.dest('build/css'));
 
 
-    gulp.src([
-        'bower_components/bootstrap-material-design/dist/js/*.map'
-    ]).pipe(gulp.dest('build/js'));
 });
 
 gulp.task('copy-fonts', function () {
     gulp.src([
         'bower_components/bootstrap/fonts/*',
-        'bower_components/font-awesome/fonts/*',
-        'bower_components/bootstrap-material-design/fonts/*'
+        'bower_components/font-awesome/fonts/*'
     ]).pipe(gulp.dest('build/fonts'));
 });
 
