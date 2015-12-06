@@ -1,1 +1,1 @@
-angular.module('track-chat.common', ['ngMaterial','uiGmapgoogle-maps']);
+angular.module('track-chat.common', ['uiGmapgoogle-maps']);

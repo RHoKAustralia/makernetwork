@@ -14,10 +14,8 @@
     "angular-resource": "latest",
     "angular-route": "latest",
     "animate.css": "~3.2.0",
-    "bootstrap-material-design": "~0.2.2",
     "arrive": "~2.0.0",
     "dropdown.js": "*",
-    "angular-material": "~0.11.4",
     "angular-google-maps": "~2.2.1"
   },
   "resolutions": {
