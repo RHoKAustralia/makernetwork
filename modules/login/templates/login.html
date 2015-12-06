@@ -8,15 +8,9 @@
       </div>
     </nav>
     <h1>{{login}}</h1>
-    <br />
     <div class="form-group label-floating">
-        <div class="input-group">
-            <input class="form-control" id="username" type="text" ng-model="username" placeholder="email">
-        </div>
-        <br />
-        <div class="input-group">
-            <input class="form-control" id="password" type="password" ng-model="password" placeholder="password">
-        </div>
+        <input class="form-control" id="username" type="text" ng-model="username" placeholder="email">
+        <input class="form-control" id="password" type="password" ng-model="password" placeholder="password">
         <a class="btn btn-primary btn-home" ng-click="loginClick()">Login</a>
         <a class="btn btn-primary btn-home" href="#/register">Register</a>
     </div>
