@@ -11,7 +11,7 @@
       <li><a href="#projects" role="tab" data-toggle="tab">Projects</a></li>
     </ul>
   </div>
-  <div class="jumbotron">
+  <div class="jumbotron jumbotron-dashboard">
     <div class="container">
         <!--<ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>-->
       <div class="row" style="" id="watch-images">
@@ -23,8 +23,8 @@
                   <div class="col-sm-3 col-md-4">
                       <img class="img-circle img-responsive dashboard-profile-image" ng-src="{{(user.photo || {}).url || '/img/user_unknown.png'}}" />
                   </div>
-                  Name: {{user.firstName}} {{user.lastName}} <br/>
-                  Email: {{user.email}} <br/>
+                  <a ng-href="#/profile/{{user.objectId}}"><div class="dashboard-profile-name">{{user.firstName}} {{user.lastName}}</div></a>
+                  <div class="dashboard-profile-email">{{user.email}}</div>
                 </div>
               </div>
               <div class="col-sm-4 col-md-4">
